@@ -20,8 +20,11 @@ import '@fontsource/public-sans/700.css';
 import { fakeBackend } from '@/utils/helpers/fake-backend';
 
 import './plugins/base';
+import registerGlobalComponents from '@/plugins/base.ts'
+
 
 const app = createApp(App);
+registerGlobalComponents(app);
 fakeBackend();
 app.use(router);
 app.use(PerfectScrollbarPlugin);

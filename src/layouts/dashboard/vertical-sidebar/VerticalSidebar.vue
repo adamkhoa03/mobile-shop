@@ -19,6 +19,7 @@
     <div>
       <v-list>
         <!---Menu Loop -->
+        <base-item-group/>
         <template v-for="(item, i) in sidebarMenu" :key="i">
           //group
 
