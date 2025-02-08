@@ -1,20 +1,8 @@
 
-import {
-  QuestionOutlined,
-  DashboardOutlined,
-  ChromeOutlined,
-  LoginOutlined,
-  ProfileOutlined,
-  FontSizeOutlined,
-  BgColorsOutlined,
-  BarcodeOutlined,
-  CrownOutlined
-} from '@ant-design/icons-vue';
-
 interface menu {
   header?: string;
   title?: string;
-  icon?: object;
+  icon?: string;
   to?: string;
   divider?: boolean;
   chip?: string;
@@ -31,50 +19,74 @@ const sidebarItem: menu[] = [
   { header: 'Navigation' },
   {
     title: 'Dashboard',
-    icon: DashboardOutlined,
+    icon: 'mdi-view-dashboard',
     to: '/dashboard'
   },
   { header: 'Authentication' },
   {
     title: 'Login',
-    icon: LoginOutlined,
+    icon: 'mdi-login',
     to: '/login1'
   },
   {
     title: 'Register',
-    icon: ProfileOutlined,
+    icon: 'mdi-account-plus',
     to: '/register'
   },
   { header: 'Utilities' },
   {
     title: 'Typography',
-    icon: FontSizeOutlined,
-    to: '/typography'
+    icon: 'mdi-format-text',
+    to: '/typography',
+    children: [
+      {
+        title: 'Basic',
+        to: '/typography/basic',
+        icon: 'mdi-format-font'
+      },
+      {
+        title: 'Advanced',
+        to: '/typography/advanced',
+        icon: 'mdi-format-text-wrapping-overflow'
+      }
+    ]
   },
   {
     title: 'Color',
-    icon: BgColorsOutlined,
-    to: '/colors'
+    icon: 'mdi-palette',
+    to: '/colors',
+    children: [
+      {
+        title: 'Primary',
+        to: '/colors/primary',
+        icon: 'mdi-palette-swatch'
+      },
+      {
+        title: 'Secondary',
+        to: '/colors/secondary',
+        icon: 'mdi-palette-swatch'
+      }
+    ]
   },
   {
     title: 'Shadow',
-    icon: BarcodeOutlined,
+    icon: 'mdi-box-shadow',
     to: '/shadow'
   },
   {
     title: 'Ant Icons',
-    icon: CrownOutlined,
+    icon: 'mdi-crown',
     to: '/icon/ant'
   },
   { header: 'Support' },
   {
     title: 'Sample Page',
-    icon: ChromeOutlined,
+    icon: 'mdi-web',
     to: '/sample-page'
   },
   {
     title: 'Documentation',
-    icon: QuestionOutlined,
+    icon: 'mdi-help-circle',
     to: 'https://codedthemes.gitbook.io/mantis-vuetify/',
     type: 'external',
     chip: 'gitbook',

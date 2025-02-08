@@ -19,11 +19,7 @@
     <div>
       <v-list>
         <!---Menu Loop -->
-        <base-item-group/>
         <template v-for="(item, i) in sidebarMenu" :key="i">
-          //group
-
-          //item
           <!---Item Sub Header -->
           <NavGroup :item="item" v-if="item.header" :key="item.title" />
           <!---Item Divider -->
@@ -41,13 +37,13 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue';
 import { useCustomizerStore } from '@/stores/customizer.ts';
-import sidebarItems from './sidebarItem';
+import menus from '@/layouts/components/Drawer/menu.ts'
 
 import NavGroup from '@/layouts/components/Drawer/NavGroup/NavGroup.vue';
 import NavItem from '@/layouts/components/Drawer/NavItem/NavItem.vue';
 import NavCollapse from '@/layouts/components/Drawer/NavCollapse/NavCollapse.vue';
-import Logo from '../logo/LogoDark.vue';
+import Logo from '@/layouts/dashboard/logo/LogoDark.vue';
 
 const customizer = useCustomizerStore();
-const sidebarMenu = shallowRef(sidebarItems);
+const sidebarMenu = shallowRef(menus);
 </script>
