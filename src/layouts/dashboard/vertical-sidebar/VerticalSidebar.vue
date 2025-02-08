@@ -10,16 +10,19 @@
     :rail="customizer.mini_sidebar"
     expand-on-hover
   >
-    <div class="pa-5">
+    <template v-slot:prepend>
       <Logo />
-    </div>
+    </template>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->
     <!-- ---------------------------------------------- -->
-    <perfect-scrollbar class="scrollnavbar">
-      <v-list aria-busy="true" aria-label="menu list">
+    <div>
+      <v-list>
         <!---Menu Loop -->
         <template v-for="(item, i) in sidebarMenu" :key="i">
+          //group
+
+          //item
           <!---Item Sub Header -->
           <NavGroup :item="item" v-if="item.header" :key="item.title" />
           <!---Item Divider -->
@@ -31,10 +34,7 @@
           <!---End Single Item-->
         </template>
       </v-list>
-      <div class="pa-4">
-        <ExtraBox />
-      </div>
-    </perfect-scrollbar>
+    </div>
   </v-navigation-drawer>
 </template>
 <script setup lang="ts">
@@ -45,7 +45,6 @@ import sidebarItems from './sidebarItem';
 import NavGroup from './NavGroup/NavGroup.vue';
 import NavItem from './NavItem/NavItem.vue';
 import NavCollapse from './NavCollapse/NavCollapse.vue';
-import ExtraBox from './extrabox/ExtraBox.vue';
 import Logo from '../logo/LogoDark.vue';
 
 const customizer = useCustomizerStore();
