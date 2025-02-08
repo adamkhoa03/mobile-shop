@@ -11,7 +11,7 @@ import {
   CrownOutlined
 } from '@ant-design/icons-vue';
 
-export interface menu {
+interface menu {
   header?: string;
   title?: string;
   icon?: object;
