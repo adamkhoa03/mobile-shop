@@ -26,7 +26,7 @@ const authStore = useAuthStore();
   <div>
     <div class="d-flex align-center pa-5">
       <v-avatar size="32" class="mr-2">
-        <img src="../../assets/images/users/avatar-1.png" width="32" alt="Julia" />
+        <img src="../../../../assets/images/users/avatar-1.png" width="32" alt="Julia" />
       </v-avatar>
       <div>
         <h6 class="text-h6 mb-0">JWT User</h6>

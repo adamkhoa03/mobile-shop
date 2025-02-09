@@ -11,7 +11,7 @@
     expand-on-hover
   >
     <template v-slot:prepend>
-      <Logo />
+      <v-img class="ma-2" max-height="50px" src="@/assets/logo1.png"></v-img>
     </template>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->
@@ -42,7 +42,6 @@ import menus from '@/layouts/components/Drawer/menu.ts'
 import NavGroup from '@/layouts/components/Drawer/NavGroup/NavGroup.vue';
 import NavItem from '@/layouts/components/Drawer/NavItem/NavItem.vue';
 import NavCollapse from '@/layouts/components/Drawer/NavCollapse/NavCollapse.vue';
-import Logo from '@/layouts/dashboard/logo/LogoDark.vue';
 
 const customizer = useCustomizerStore();
 const sidebarMenu = shallowRef(menus);

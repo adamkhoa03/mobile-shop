@@ -1,4 +1,5 @@
 import layout from '@/layouts/default.vue';
+import routerDashboard from '@/views/dashboard/router/routerDashboard.ts'
 
 const routers = [
   {
@@ -9,7 +10,8 @@ const routers = [
         name: 'LandingPage',
         path: '/',
         component: () => import('@/views/dashboard/DefaultDashboard.vue')
-      }
+      },
+      ...routerDashboard
     ]
   }
 ];

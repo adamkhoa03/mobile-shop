@@ -4,9 +4,9 @@ import { useCustomizerStore } from '@/stores/customizer.ts';
 import { MenuFoldOutlined, SearchOutlined, GithubOutlined } from '@ant-design/icons-vue';
 
 // dropdown imports
-import NotificationDD from '@/components/AppBar/NotificationDD.vue';
-import Searchbar from '@/components/AppBar/SearchBarPanel.vue';
-import ProfileDD from '@/components/AppBar/ProfileDD.vue';
+import NotificationDD from '@/layouts/components/AppBar/components/NotificationDD.vue';
+import Searchbar from '@/layouts/components/AppBar/components/SearchBarPanel.vue';
+import ProfileDD from '@/layouts/components/AppBar/components/ProfileDD.vue';
 
 const customizer = useCustomizerStore();
 </script>
