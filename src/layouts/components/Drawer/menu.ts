@@ -16,13 +16,12 @@ interface menu {
 }
 
 const sidebarItem: menu[] = [
-  { header: 'Navigation' },
   {
-    title: 'Dashboard',
+    title: 'dashboard',
     icon: 'mdi-view-dashboard',
     to: '/dashboard'
   },
-  { header: 'Authentication' },
+  {divider: true},
   {
     title: 'Login',
     icon: 'mdi-login',
@@ -33,7 +32,7 @@ const sidebarItem: menu[] = [
     icon: 'mdi-account-plus',
     to: '/register'
   },
-  { header: 'Utilities' },
+  {divider: true},
   {
     title: 'Typography',
     icon: 'mdi-format-text',
@@ -78,7 +77,7 @@ const sidebarItem: menu[] = [
     icon: 'mdi-crown',
     to: '/icon/ant'
   },
-  { header: 'Support' },
+  {divider: true},
   {
     title: 'Sample Page',
     icon: 'mdi-web',

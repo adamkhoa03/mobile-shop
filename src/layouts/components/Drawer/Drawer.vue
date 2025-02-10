@@ -20,10 +20,8 @@
       <v-list>
         <!---Menu Loop -->
         <template v-for="(item, i) in sidebarMenu" :key="i">
-          <!---Item Sub Header -->
-          <NavGroup :item="item" v-if="item.header" :key="item.title" />
           <!---Item Divider -->
-          <v-divider class="my-3" v-else-if="item.divider" />
+          <v-divider class="my-3" v-if="item.divider" />
           <!---If Has Child -->
           <NavCollapse class="leftPadding" :item="item" :level="0" v-else-if="item.children" />
           <!---Single Item-->
@@ -37,9 +35,8 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue';
 import { useCustomizerStore } from '@/stores/customizer.ts';
-import menus from '@/layouts/components/Drawer/menu.ts'
+import menus from '@/layouts/components/Drawer/menu.ts';
 
-import NavGroup from '@/layouts/components/Drawer/NavGroup/NavGroup.vue';
 import NavItem from '@/layouts/components/Drawer/NavItem/NavItem.vue';
 import NavCollapse from '@/layouts/components/Drawer/NavCollapse/NavCollapse.vue';
 

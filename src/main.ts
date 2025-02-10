@@ -9,6 +9,7 @@ import VueTablerIcons from 'vue-tabler-icons';
 import VueApexCharts from 'vue3-apexcharts';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
+import i18n from '@/i18n';
 
 // google-fonts
 import '@fontsource/public-sans/400.css';
@@ -19,14 +20,15 @@ import '@fontsource/public-sans/700.css';
 //Mock Api data
 import { fakeBackend } from '@/utils/helpers/fake-backend';
 
+// Auto import and make global components
 import './plugins/base';
-import registerGlobalComponents from '@/plugins/base.ts'
-
+import registerGlobalComponents from '@/plugins/base.ts';
 
 const app = createApp(App);
 registerGlobalComponents(app);
 fakeBackend();
 app.use(router);
+app.use(i18n);
 app.use(PerfectScrollbarPlugin);
 app.use(createPinia());
 app.use(VueTablerIcons);

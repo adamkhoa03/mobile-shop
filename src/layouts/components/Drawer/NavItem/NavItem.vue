@@ -1,7 +1,6 @@
 <script setup>
-const props = defineProps({ item: Object, level: Number });
+defineProps({ item: Object, level: Number });
 </script>
-
 <template>
   <!---Single Item-->
   <v-list-item
@@ -17,10 +16,10 @@ const props = defineProps({ item: Object, level: Number });
     <template v-slot:prepend>
       <v-icon :icon="item.icon"></v-icon>
     </template>
-    <v-list-item-title>{{ item.title }}</v-list-item-title>
+    <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
     <!---If Caption-->
     <v-list-item-subtitle v-if="item.subCaption" class="text-caption mt-n1 hide-menu">
-      {{ item.subCaption }}
+      {{ $t(item.subCaption) }}
     </v-list-item-subtitle>
     <!---If any chip or label-->
     <template v-slot:append v-if="item.chip">
