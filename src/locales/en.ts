@@ -1,8 +1,20 @@
 const en = {
-  hello: 'hello world',
+  hello: 'Hello',
   dashboard: 'Dashboard',
-  category: 'Category',
-  categoryExplanation: 'Category Controller'
-}
+  create: 'Create',
+  edit: 'Edit',
+  delete: 'Delete',
+  detail: 'Detail',
+  english: 'English',
+  vietnamese: 'Vietnamese',
+  category: {
+    categoryName: 'Category',
+    categoryExplanation: 'Manage categories',
+    create: 'Create category',
+    edit: 'Edit category',
+    delete: 'Delete category',
+    listCategory: 'List'
+  }
+};
 
-export default en
+export default en;

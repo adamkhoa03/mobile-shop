@@ -12,11 +12,11 @@ const message = {
     ...vi
   }
 };
-const currentLocale = localStorage.getItem(constants.LANGUAGE) || 'vi'
-localStorage.setItem(constants.LANGUAGE, currentLocale)
+const currentLocale = localStorage.getItem(constants.DEFAULT_LANGUAGE) || 'vi'
+localStorage.setItem(constants.DEFAULT_LANGUAGE, currentLocale)
 const i18n = createI18n({
   locale: currentLocale,
-  fallbackLocale: constants.LANGUAGE,
+  fallbackLocale: constants.DEFAULT_LANGUAGE,
   messages: message
 });
 export default i18n;

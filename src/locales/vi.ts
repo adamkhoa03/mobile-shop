@@ -5,6 +5,8 @@ const vi = {
   edit: 'Sửa',
   delete: 'Xóa',
   detail: 'Chi tiết',
+  english: 'Tiếng Anh',
+  vietnamese: 'Tiếng Việt',
   category: {
     categoryName: 'Danh mục',
     categoryExplanation: 'Quản lý danh mục',
