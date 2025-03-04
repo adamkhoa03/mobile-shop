@@ -5,6 +5,7 @@
     elevation="0"
     rail-width="200"
     mobile-breakpoint="lg"
+    width="300"
     app
     class="leftSidebar"
     :rail="customizer.mini_sidebar"

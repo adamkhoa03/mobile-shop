@@ -16,10 +16,10 @@ const props = defineProps({ item: Object, level: Number });
           <v-icon :icon="item.icon"></v-icon>
         </template>
         <!---Title  -->
-        <v-list-item-title class="mr-auto">{{ item.title }}</v-list-item-title>
+        <v-list-item-title class="mr-auto text-capitalize">{{ $t(item.title) }}</v-list-item-title>
         <!---If Caption-->
         <v-list-item-subtitle v-if="item.subCaption" class="text-caption mt-n1 hide-menu">
-          {{ item.subCaption }}
+          {{ $t(item.subCaption) }}
         </v-list-item-subtitle>
       </v-list-item>
     </template>

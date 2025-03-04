@@ -1,0 +1,20 @@
+.v-table__wrapper {
+  height: calc(70vh + 55px);
+  tbody tr:nth-child(odd){
+    background-color: #f3f3f3;
+  }
+}
+ .v-data-table {
+   border-radius: 12px;
+   overflow: hidden;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+ }
+::v-deep(.v-data-table__wrapper tbody tr:nth-child(odd)) {
+  background-color: #f9f9f9; /* Màu nền dòng lẻ */
+}
+
+.v-table.v-table--fixed-header > .v-table__wrapper > table > thead > tr > th {
+    background-color: #613368 !important; /* Màu header tím */
+    color: white !important;
+    font-weight: bold;
+}
