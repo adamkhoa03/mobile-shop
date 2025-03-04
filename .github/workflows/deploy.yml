@@ -15,7 +15,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install depedencies
-        run: pnpm install
+        run: 
+            corepack enable pnpm
+            pnpm install
 
       - name: Build Vue 3 + Vite
         run: pnpm run build
