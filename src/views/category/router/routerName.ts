@@ -1,0 +1,10 @@
+const routerName = {
+  CATEGORY: 'CATEGORY',
+  LIST: 'lIST_CATEGORY',
+  ADD: 'CREATE_CATEGORY',
+  EDIT: 'EDIT_CATEGORY',
+  DELETE: 'DELETE_CATEGORY',
+  DETAIL: 'DETAIL_CATEGORY',
+}
+
+export default routerName

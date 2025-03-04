@@ -1,5 +1,6 @@
 import layout from '@/layouts/default.vue';
 import routerDashboard from '@/views/dashboard/router/routerDashboard.ts'
+import routerCategory from '@/views/category/router/routerCategory.ts';
 
 const routers = [
   {
@@ -11,7 +12,8 @@ const routers = [
         path: '/',
         component: () => import('@/views/dashboard/DefaultDashboard.vue')
       },
-      ...routerDashboard
+      ...routerDashboard,
+      ...routerCategory
     ]
   }
 ];
