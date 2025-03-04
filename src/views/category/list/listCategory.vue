@@ -1,59 +1,9 @@
 <script setup lang="ts">
 import AdvanceSearch from '@/components/shared/AdvanceSearch.vue';
 import { ref } from 'vue';
+import { headers, phones } from '@/views/category/list/listCategory.ts';
 
 const breadCrumbs = ref(['Danh mục']);
-
-const headers = [
-  { title: 'Thương hiệu', align: 'start', key: 'brand', sortable: true },
-  { title: 'Mô tả', align: 'start', key: 'description', sortable: true },
-  { title: 'Thao tác', align: 'end', key: 'action', sortable: false }
-] as const; // Readonly
-
-const phones = [
-  {
-    brand: 'Apple',
-    description: 'Hãng điện thoại cao cấp, nổi bật với iPhone và hệ sinh thái iOS.',
-    action: ['delete', 'edit']
-  },
-  {
-    brand: 'Samsung',
-    description: 'Thương hiệu Hàn Quốc với dòng Galaxy đa dạng từ phổ thông đến cao cấp.',
-    action: ['delete', 'edit']
-  },
-  {
-    brand: 'Xiaomi',
-    description: 'Nhà sản xuất Trung Quốc, nổi bật với cấu hình mạnh và giá rẻ.',
-    action: ['delete', 'edit']
-  },
-  { brand: 'Oppo', description: 'Chuyên về điện thoại chụp ảnh đẹp, thiết kế thời trang.', action: ['delete', 'edit'] },
-  { brand: 'Vivo', description: 'Thương hiệu tập trung vào công nghệ camera và âm thanh.', action: ['delete', 'edit'] },
-  {
-    brand: 'OnePlus',
-    description: 'Hãng smartphone cao cấp với hiệu năng mạnh mẽ và OxygenOS.',
-    action: ['delete', 'edit']
-  },
-  {
-    brand: 'Realme',
-    description: 'Thương hiệu con của Oppo, hướng đến phân khúc giá rẻ và trung cấp.',
-    action: ['delete', 'edit']
-  },
-  {
-    brand: 'Sony',
-    description: 'Hãng Nhật Bản nổi tiếng với dòng Xperia và công nghệ màn hình cao cấp.',
-    action: ['delete', 'edit']
-  },
-  {
-    brand: 'Google',
-    description: 'Nhà sản xuất Pixel với trải nghiệm Android thuần khiết.',
-    action: ['delete', 'edit']
-  },
-  {
-    brand: 'Asus',
-    description: 'Chuyên điện thoại gaming như ROG Phone với hiệu năng mạnh.',
-    action: ['delete', 'edit']
-  }
-];
 
 // const virtualBoats = computed(() =>
 //   [...Array(100).keys()].map((i) => ({
@@ -84,6 +34,41 @@ const phones = [
   <!--  Content-->
   <div class="mt-7">
     <v-data-table-virtual :headers="headers" :items="phones" fixed-header item-value="name">
+      <!--  Brand-->
+      <template v-slot:[`item.brand`]="{ item }">
+        <div class="d-flex align-center">
+          <div class="text-center mr-2">
+            <v-avatar color="blue-darken-2" rounded="0">
+              <v-img src="@/assets/images/categories/iphone.jpg"></v-img>
+            </v-avatar>
+          </div>
+          <v-menu open-on-hover location="end" offset="10">
+            <template v-slot:activator="{ props }">
+              <div v-bind="props">{{ item.brand }}</div>
+            </template>
+            <v-card width="300px">
+              <div class="text-h4 my-2 text-center text-capitalize">Tên danh mục: {{ item.brand }}</div>
+              <div class="d-flex">
+                <div>
+                  <v-img width="150px" src="@/assets/images/categories/iphone.jpg"></v-img>
+                </div>
+                <div>
+                  <div>
+                    <span class="text-h5">Ngày tạo:</span> <br />
+                    20/02/2025
+                  </div>
+                  <div>
+                    <span class="text-h5">Ngày cập nhật:</span> <br />
+                    20/02/2025
+                  </div>
+                </div>
+              </div>
+            </v-card>
+          </v-menu>
+        </div>
+      </template>
+
+      <!-- Action  -->
       <template v-slot:[`item.action`]>
         <div>
           <v-tooltip text="edit">
