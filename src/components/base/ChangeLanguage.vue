@@ -26,7 +26,7 @@ watchEffect(() => {
     <template v-slot:selection="{ item }"> {{ $t(item.title) }}</template>
     <template #item="{ props }">
       <v-list-item v-bind="props">
-        <template v-slot:title="{ title }">{{ $t(title) }}</template>
+        <template v-slot:title="{ title }">{{ $t(title as string) }}</template>
       </v-list-item>
     </template>
   </v-select>
