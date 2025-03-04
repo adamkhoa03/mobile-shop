@@ -1,0 +1,27 @@
+name: Deploy Vue 3 + Vite to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: node:18
+
+    steps:
+      - name: clone code from source
+        uses: actions/checkout@v4
+
+      - name: Install depedencies
+        run: pnpm install
+
+      - name: Build Vue 3 + Vite
+        run: pnpm run build
+      
+      - name: Deploy into github page
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
