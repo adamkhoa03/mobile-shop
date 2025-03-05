@@ -2,6 +2,7 @@
 import AdvanceSearch from '@/components/shared/AdvanceSearch.vue';
 import { ref } from 'vue';
 import { headers, phones } from '@/views/category/list/listCategory.ts';
+import popupCategory from './components/popupCategory.vue';
 
 const breadCrumbs = ref(['Danh mục']);
 
@@ -36,49 +37,31 @@ const breadCrumbs = ref(['Danh mục']);
     <v-data-table-virtual :headers="headers" :items="phones" fixed-header item-value="name">
       <!--  Brand-->
       <template v-slot:[`item.brand`]="{ item }">
-        <div class="d-flex align-center">
+        <div class="d-flex align-center pointer">
           <div class="text-center mr-2">
             <v-avatar color="blue-darken-2" rounded="0">
               <v-img src="@/assets/images/categories/iphone.jpg"></v-img>
             </v-avatar>
           </div>
-          <v-menu open-on-hover location="end" offset="10">
-            <template v-slot:activator="{ props }">
-              <div v-bind="props">{{ item.brand }}</div>
-            </template>
-            <v-card width="300px">
-              <div class="text-h4 my-2 text-center text-capitalize">Tên danh mục: {{ item.brand }}</div>
-              <div class="d-flex">
-                <div>
-                  <v-img width="150px" src="@/assets/images/categories/iphone.jpg"></v-img>
-                </div>
-                <div>
-                  <div>
-                    <span class="text-h5">Ngày tạo:</span> <br />
-                    20/02/2025
-                  </div>
-                  <div>
-                    <span class="text-h5">Ngày cập nhật:</span> <br />
-                    20/02/2025
-                  </div>
-                </div>
-              </div>
-            </v-card>
-          </v-menu>
+          <popup-category :brand="item.brand" />
         </div>
       </template>
 
       <!-- Action  -->
       <template v-slot:[`item.action`]>
-        <div>
+        <div class="d-flex align-center justify-end">
           <v-tooltip text="edit">
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" icon="mdi-pencil" variant="flat" size="compact"></v-btn>
+              <v-btn v-bind="props" variant="text" icon>
+                <v-img width="25" class="pointer" src="@/assets/pencil.svg"></v-img>
+              </v-btn>
             </template>
           </v-tooltip>
           <v-tooltip text="delete">
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" icon="mdi-delete" variant="flat" size="compact"></v-btn>
+              <v-btn v-bind="props" variant="text" icon>
+                <v-img width="25" class="pointer" src="@/assets/icon-delete.svg"></v-img>
+              </v-btn>
             </template>
           </v-tooltip>
         </div>
