@@ -10,7 +10,8 @@ const constants = {
       title: 'vietnamese',
       value: 'vi'
     }
-  ]
+  ],
+  MAX_WIDTH_500: 500
 };
 
 export default constants;

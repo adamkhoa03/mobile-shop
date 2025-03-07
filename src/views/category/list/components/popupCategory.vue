@@ -10,7 +10,7 @@ defineProps({
 <template>
   <v-menu open-on-hover location="end" offset="10">
     <template v-slot:activator="{ props }">
-      <div class="pointer" v-bind="props">{{ brand }}</div>
+      <span class="pointer" v-bind="props">{{ brand }}</span>
     </template>
     <v-card width="300px">
       <div class="text-h4 my-2 text-center text-capitalize">Tên danh mục: {{ brand }}</div>

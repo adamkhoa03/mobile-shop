@@ -1,5 +1,5 @@
 {
-  "name": "mantis-vuetify-vuejs-free",
+  "name": "mobile-shop",
   "version": "1.2.0",
   "private": false,
   "author": "CodedThemes",
@@ -25,6 +25,7 @@
     "@typescript-eslint/parser": "^8.18.2",
     "ant-design-vue": "4.2.6",
     "apexcharts": "4.3.0",
+    "globals": "^16.0.0",
     "pinia": "^2.3.1",
     "vee-validate": "4.15.0",
     "vite-plugin-vuetify": "2.0.4",

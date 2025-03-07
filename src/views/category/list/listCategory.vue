@@ -1,17 +1,13 @@
 <script setup lang="ts">
+//components
 import AdvanceSearch from '@/components/shared/AdvanceSearch.vue';
+import popupCategory from './components/popupCategory.vue';
+import CreateCategory from '@/views/category/list/components/CreateCategory.vue';
+
 import { ref } from 'vue';
 import { headers, phones } from '@/views/category/list/listCategory.ts';
-import popupCategory from './components/popupCategory.vue';
 
 const breadCrumbs = ref(['Danh mục']);
-
-// const virtualBoats = computed(() =>
-//   [...Array(100).keys()].map((i) => ({
-//     ...phones[i % phones.length],
-//     name: `${phones[i % phones.length].brand} #${i}`
-//   }))
-// );
 </script>
 
 <template>
@@ -19,6 +15,7 @@ const breadCrumbs = ref(['Danh mục']);
 
   <!--  Head-->
   <div class="d-flex justify-end">
+    <!--    Search-->
     <v-responsive max-width="344">
       <v-text-field
         density="compact"
@@ -28,7 +25,11 @@ const breadCrumbs = ref(['Danh mục']);
         placeholder="Typing search"
       ></v-text-field>
     </v-responsive>
-    <v-btn class="mx-2" color="primary" prepend-icon="mdi-plus" text="Thêm danh mục" variant="flat"></v-btn>
+
+    <!--    Create-->
+    <create-category />
+
+    <!--    EndCreate-->
     <advance-search />
   </div>
 
@@ -37,14 +38,12 @@ const breadCrumbs = ref(['Danh mục']);
     <v-data-table-virtual :headers="headers" :items="phones" fixed-header item-value="name">
       <!--  Brand-->
       <template v-slot:[`item.brand`]="{ item }">
-        <div class="d-flex align-center pointer">
-          <div class="text-center mr-2">
-            <v-avatar color="blue-darken-2" rounded="0">
-              <v-img src="@/assets/images/categories/iphone.jpg"></v-img>
-            </v-avatar>
-          </div>
-          <popup-category :brand="item.brand" />
-        </div>
+        <popup-category :brand="item.brand" />
+      </template>
+
+      <template v-slot:[`item.status`]="{ item }">
+        <span v-if="item.status == 1">Hoạt động</span>
+        <span v-else> Không hoạt động</span>
       </template>
 
       <!-- Action  -->
