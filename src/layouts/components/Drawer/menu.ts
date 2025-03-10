@@ -35,7 +35,7 @@ const sidebarItem: menu[] = [
   // },
   {divider: true},
   {
-    title: 'category.categoryName',
+    title: 'category.category',
     icon: 'mdi-folder',
     subCaption:'category.categoryExplanation',
     to: routerCategory.CATEGORY,

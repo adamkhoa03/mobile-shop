@@ -11,7 +11,9 @@ const constants = {
       value: 'vi'
     }
   ],
-  MAX_WIDTH_500: 500
+  MAX_WIDTH_500: 500,
+  MAX_HEIGHT_600: 600,
+  MAX_LENGTH_TITLE: 30,
 };
 
 export default constants;

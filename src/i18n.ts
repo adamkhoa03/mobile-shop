@@ -1,22 +1,24 @@
 // i18n
 import { createI18n } from 'vue-i18n';
-import vi from '@/locales/vi.ts';
-import en from '@/locales/en.ts';
-import constants from '@/constants.ts'
+import viCustomize from '@/locales/vi.ts';
+import enCustomize from '@/locales/en.ts';
+import constants from '@/constants.ts';
 
 const message = {
   en: {
-    ...en
+    ...enCustomize
   },
   vi: {
-    ...vi
+    ...viCustomize
   }
 };
-const currentLocale = localStorage.getItem(constants.DEFAULT_LANGUAGE) || 'vi'
-localStorage.setItem(constants.DEFAULT_LANGUAGE, currentLocale)
+const currentLocale = localStorage.getItem(constants.LANGUAGE_KEY) || constants.DEFAULT_LANGUAGE;
+localStorage.setItem(constants.LANGUAGE_KEY, currentLocale);
 const i18n = createI18n({
+  legacy: false,
   locale: currentLocale,
   fallbackLocale: constants.DEFAULT_LANGUAGE,
   messages: message
 });
+
 export default i18n;

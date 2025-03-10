@@ -1,23 +1,45 @@
 <script setup lang="ts">
 import constants from '@/constants.ts';
 import { ref } from 'vue';
+import { useForm } from 'vee-validate';
+import { object, string, number } from 'yup';
+import { toTypedSchema } from '@vee-validate/yup';
+import { useI18n } from 'vue-i18n';
 
-const dialog = ref(false);
-const category = ref({
-  name: null,
-  description: null,
-  status: null
+const { t } = useI18n();
+
+//Create schema and default value
+const schema = object({
+  name: string().required().default('').label(t('category.categoryName')),
+  status: number().required().default(1).label(t('category.categoryStatus')),
+  description: string().required().default('').label(t('category.description'))
+});
+const { errors, defineField, handleSubmit, resetForm } = useForm({
+  validationSchema: toTypedSchema(schema)
 });
 
+//Defined and binding field
+const [name, categoryNameAttr] = defineField('name');
+const [status, categoryStatusAttr] = defineField('status');
+const [description, categoryDescriptionAttr] = defineField('description');
+
+const dialog = ref(false);
+
+const listCategoryStatus = ref([
+  { value: 1, title: 'Hoạt động' },
+  { value: 0, title: 'Không hoạt động' }
+]);
+
 const addCategory = () => {};
-const handleCreate = () => {
-  console.log(category.value);
+const onSubmit = handleSubmit((value) => {
+  console.log(value);
+  resetForm();
   dialog.value = false;
-};
+});
 </script>
 
 <template>
-  <v-dialog v-model="dialog" :max-width="constants.MAX_WIDTH_500" persistent :scrollable="true" max-height="600">
+  <v-dialog v-model="dialog" :max-width="constants.MAX_WIDTH_500" persistent :scrollable="true" :max-height="constants.MAX_HEIGHT_600">
     <template v-slot:activator="{ props }">
       <v-btn
         v-bind="props"
@@ -32,34 +54,47 @@ const handleCreate = () => {
 
     <template v-slot:default>
       <v-card>
-        <v-card-title> Tạo danh mục mới</v-card-title>
+        <v-card-title class="text-capitalize">{{ t('category.createNewCategory') }}</v-card-title>
         <v-card-text>
+          <v-label class="text-capitalize mb-1" :text="t('category.categoryName')"></v-label>
           <v-text-field
-            v-model="category.name"
-            counter="30"
-            maxlength="30"
-            label="Tên danh mục"
+            v-model="name"
+            v-bind="categoryNameAttr"
+            :counter="constants.MAX_LENGTH_TITLE"
+            :maxlength="constants.MAX_LENGTH_TITLE"
             variant="outlined"
-            placeholder="Nhập tên danh mục"
+            :placeholder="t('category.placeHolders.typeCategoryName')"
+            :error-messages="errors.name"
           ></v-text-field>
-          <v-select v-model="category.status" label="Trạng thái" :items="['Hoạt động', 'Không hoạt động']" variant="outlined"></v-select>
-          <v-textarea
-            v-model="category.description"
-            maxlength="150"
-            label="Mô tả"
+          <v-label class="text-capitalize mb-1" :text="t('category.categoryStatus')"></v-label>
+          <v-select
+            v-model="status"
+            v-bind="categoryStatusAttr"
+            :items="listCategoryStatus"
+            item-value="value"
             variant="outlined"
-            placeholder="Nhập mô tả"
+            :placeholder="t('category.placeHolders.select')"
+            :error-messages="errors.status"
+          ></v-select>
+          <v-label class="text-capitalize mb-1" :text="t('category.description')"></v-label>
+          <v-textarea
+            v-model="description"
+            v-bind="categoryDescriptionAttr"
+            maxlength="150"
+            variant="outlined"
+            :placeholder="t('category.placeHolders.typeDescription')"
             max-rows="2"
             auto-grow
             rows="3"
             counter
+            :error-messages="errors.description"
           ></v-textarea>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn variant="flat" color="error" @click="dialog = false">Hủy bỏ</v-btn>
-          <v-btn prepend-icon="mdi-plus" variant="flat" color="primary" @click="handleCreate">Tạo mới</v-btn>
+          <v-btn variant="flat" color="error" @click="dialog = false">{{ t('cancel') }}</v-btn>
+          <v-btn prepend-icon="mdi-plus" variant="flat" color="primary" @click="onSubmit">{{ t('createNew') }}</v-btn>
         </v-card-actions>
       </v-card>
     </template>

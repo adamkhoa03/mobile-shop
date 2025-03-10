@@ -2,19 +2,30 @@ const vi = {
   hello: 'Xin chào',
   dashboard: 'Trang tổng quan',
   create: 'Thêm',
+  createNew: 'Tạo mới',
+  cancel: 'Hủy bỏ',
   edit: 'Sửa',
   delete: 'Xóa',
   detail: 'Chi tiết',
   english: 'Tiếng Anh',
   vietnamese: 'Tiếng Việt',
   category: {
-    categoryName: 'Danh mục',
+    category: 'Danh mục',
+    categoryName: 'Tên danh mục',
     categoryExplanation: 'Quản lý danh mục',
-    create:'Thêm danh mục',
+    create: 'Thêm danh mục',
     edit: 'Sửa danh mục',
     delete: 'Xóa danh mục',
-    listCategory: 'Danh sách'
+    listCategory: 'Danh sách',
+    createNewCategory: 'Tạo danh mục mới',
+    categoryStatus: 'Trạng thái danh mục',
+    description: 'Mô tả',
+    placeHolders: {
+      typeCategoryName: 'Nhập tên danh mục',
+      typeDescription: 'Nhập mô tả',
+      select: 'Lựa chọn'
+    }
   }
-}
+};
 
-export default vi
+export default vi;
