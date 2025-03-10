@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 import constants from '@/constants.ts';
 import { useI18n } from 'vue-i18n';
+import updateYupLocale from '@/utils/yupLocale.ts';
 
 const { locale } = useI18n();
 const localeSelect = ref(localStorage.getItem(constants.LANGUAGE_KEY) || constants.DEFAULT_LANGUAGE);
 const dataLanguage = ref(constants.DATA_LANGUAGE);
-watchEffect(() => {
+
+watch(localeSelect, () => {
   localStorage.setItem(constants.LANGUAGE_KEY, localeSelect.value);
   locale.value = localeSelect.value;
+  window.location.reload();
 });
+
+updateYupLocale(localeSelect.value);
 </script>
 
 <template>
