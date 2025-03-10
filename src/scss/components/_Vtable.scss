@@ -13,6 +13,10 @@
   background-color: #f9f9f9; /* Màu nền dòng lẻ */
 }
 
+.v-data-table__tr:hover {
+  background: #e6e6e6 !important;
+}
+
 .v-table.v-table--fixed-header > .v-table__wrapper > table > thead > tr > th {
     background-color: #613368 !important; /* Màu header tím */
     color: white !important;
