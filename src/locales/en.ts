@@ -5,6 +5,7 @@ const en = {
   createNew: 'Create New',
   cancel: 'Cancel',
   edit: 'Edit',
+  update:'Update',
   delete: 'Delete',
   detail: 'Detail',
   english: 'English',
