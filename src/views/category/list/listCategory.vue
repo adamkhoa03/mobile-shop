@@ -17,7 +17,7 @@ const { t } = useI18n();
 
 // Reactive state
 const dataTable = ref<categoryResponse[]>([]);
-const idEdit = ref<number | null>(null);
+const idEdit = ref<number | undefined>(undefined);
 const itemDelete = ref<categoryResponse | null>(null);
 const dialogEdit = ref<boolean>(false);
 const dialogDelete = ref<boolean>(false);

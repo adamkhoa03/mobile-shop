@@ -18,7 +18,10 @@ const {
 } = useCategoryForm();
 
 const props = defineProps({
-  id: Number
+  id: {
+    type: Number,
+    default: undefined
+  }
 });
 
 const dialog = defineModel('dialog', { default: false });

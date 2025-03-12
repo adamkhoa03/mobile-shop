@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios';
 export class responseWrapper {
   status: number;
   private message: string;
-  public data: Array;
+  public data: Array<any>;
 
   constructor(response: AxiosResponse) {
     this.status = response.status;
