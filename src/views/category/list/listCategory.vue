@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 //components
 import AdvanceSearch from '@/components/shared/AdvanceSearch.vue';
 import popupCategory from './components/popupCategory.vue';
@@ -6,30 +9,55 @@ import CreateCategory from '@/views/category/list/components/CreateCategory.vue'
 import EditCategory from '@/views/category/list/components/EditCategory.vue';
 import DialogConfirm from '@/components/shared/DialogConfirm.vue';
 
-import { ref } from 'vue';
-import { headers, phones } from '@/views/category/list/listCategory.ts';
-import { useI18n } from 'vue-i18n';
+// Services & Constants
+import { CategoryServices } from '@/views/category/services/categoryServices.ts';
+import { headers } from '@/views/category/list/listCategory.ts';
 
 const { t } = useI18n();
 
-const breadCrumbs = ref([t('category.category')]);
-const idEdit = ref();
-const itemDelete = ref();
+// Reactive state
+const dataTable = ref<categoryResponse[]>([]);
+const idEdit = ref<number | null>(null);
+const itemDelete = ref<categoryResponse | null>(null);
+const dialogEdit = ref<boolean>(false);
+const dialogDelete = ref<boolean>(false);
 
-//Edit
-const dialogEdit = ref(false);
+// Computed
+const breadCrumbs = computed(() => [t('category.category')]);
+
+// Interface
+interface categoryResponse {
+  id: number;
+  brand: string;
+  status: number;
+}
+
+//Call API
+const getCategories = async () => {
+  try {
+    const response = await CategoryServices.getCategories();
+    if (response?.status === 200) {
+      dataTable.value = response.data;
+    }
+  } catch (error) {
+    console.error('Lỗi khi lấy danh mục:', error);
+  }
+};
+
+//Event handle
 const onEdit = (item: { id: number }) => {
   idEdit.value = item.id;
   dialogEdit.value = true;
 };
 
-//Delete
-const dialogDelete = ref(false);
-const onDelete = (item: { id: number; brand: string }) => {
+const onDelete = (item: categoryResponse) => {
   itemDelete.value = item;
   dialogDelete.value = true;
   console.log(itemDelete.value.brand);
 };
+
+//Lifecycle Hooks
+onMounted(getCategories);
 </script>
 
 <template>
@@ -57,7 +85,7 @@ const onDelete = (item: { id: number; brand: string }) => {
 
   <!--  Content-->
   <div class="mt-7">
-    <v-data-table-virtual :headers="headers" :items="phones" fixed-header item-value="name">
+    <v-data-table-virtual :headers="headers" :items="dataTable" fixed-header item-value="name">
       <!--  Brand-->
       <template v-slot:[`item.brand`]="{ item }">
         <popup-category :brand="item.brand" />
