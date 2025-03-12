@@ -11,7 +11,6 @@ const dataLanguage = ref(constants.DATA_LANGUAGE);
 watch(localeSelect, () => {
   localStorage.setItem(constants.LANGUAGE_KEY, localeSelect.value);
   locale.value = localeSelect.value;
-  window.location.reload();
 });
 
 updateYupLocale(localeSelect.value);

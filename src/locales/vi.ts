@@ -5,10 +5,13 @@ const vi = {
   createNew: 'Tạo mới',
   cancel: 'Hủy bỏ',
   edit: 'Sửa',
+  update: 'Cập nhật',
   delete: 'Xóa',
   detail: 'Chi tiết',
   english: 'Tiếng Anh',
   vietnamese: 'Tiếng Việt',
+  deleteConfirm: 'Bạn có muốn xóa không?',
+  confirmDelete: 'Xác nhận xóa',
   category: {
     category: 'Danh mục',
     categoryName: 'Tên danh mục',

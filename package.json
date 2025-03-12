@@ -28,6 +28,7 @@
     "@vee-validate/yup": "^4.15.0",
     "ant-design-vue": "4.2.6",
     "apexcharts": "4.3.0",
+    "axios": "^1.8.3",
     "globals": "^16.0.0",
     "pinia": "^2.3.1",
     "vee-validate": "4.15.0",
