@@ -21,6 +21,7 @@ const idEdit = ref<number | undefined>(undefined);
 const itemDelete = ref<categoryResponse | null>(null);
 const dialogEdit = ref<boolean>(false);
 const dialogDelete = ref<boolean>(false);
+const loading = ref(false);
 
 // Computed
 const breadCrumbs = computed(() => [t('category.category')]);
@@ -34,11 +35,14 @@ interface categoryResponse {
 
 //Call API
 const getCategories = async () => {
+  loading.value = true;
+  const searchParams = { page: 1, limit: 100 };
   try {
-    const response = await CategoryServices.getCategories();
+    const response = await CategoryServices.getCategories(searchParams);
     if (response?.status === 200) {
       dataTable.value = response.data;
     }
+    loading.value = false;
   } catch (error) {
     console.error('Lỗi khi lấy danh mục:', error);
   }
@@ -46,7 +50,7 @@ const getCategories = async () => {
 
 //Event handle
 const onEdit = (item: { id: number }) => {
-  idEdit.value = item.id;
+  idEdit.value = Number(item.id);
   dialogEdit.value = true;
 };
 
@@ -54,6 +58,10 @@ const onDelete = (item: categoryResponse) => {
   itemDelete.value = item;
   dialogDelete.value = true;
   console.log(itemDelete.value.brand);
+};
+
+const refreshData = () => {
+  getCategories();
 };
 
 //Lifecycle Hooks
@@ -119,10 +127,12 @@ onMounted(getCategories);
   </div>
 
   <!--  Dialog Edit Category-->
-  <EditCategory v-model:dialog="dialogEdit" :id="idEdit" />
+  <EditCategory v-model:dialog="dialogEdit" :id="idEdit" @update-success="refreshData" />
 
   <!--  Dialog delete-->
   <DialogConfirm v-model:dialog="dialogDelete" />
+
+  <base-dialog-loading :isLoading="loading" />
 </template>
 
 <style scoped lang="scss"></style>

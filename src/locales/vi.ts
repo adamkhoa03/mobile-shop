@@ -12,6 +12,7 @@ const vi = {
   vietnamese: 'Tiếng Việt',
   deleteConfirm: 'Bạn có muốn xóa không?',
   confirmDelete: 'Xác nhận xóa',
+  updatingData: 'Đang cập nhật dữ liệu...',
   category: {
     category: 'Danh mục',
     categoryName: 'Tên danh mục',
