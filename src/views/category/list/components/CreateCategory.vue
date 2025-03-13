@@ -2,6 +2,7 @@
 import constants from '@/constants.ts';
 import { ref } from 'vue';
 import { useCategoryForm } from '@/views/category/list/components/configs/useCategoryForm.ts';
+import { type categoryItem } from '@/views/category/types/apis.ts';
 
 //Services
 import { CategoryServices } from '@/views/category/services/categoryServices.ts';
@@ -22,13 +23,6 @@ const {
   dialog,
   listCategoryStatus
 } = useCategoryForm();
-
-//Interface
-interface itemCategory {
-  brand: string;
-  status: number;
-  description: string;
-}
 
 //Handling event
 const onSubmit = handleSubmit(async (value) => {
@@ -51,7 +45,7 @@ const isLoading = ref(false);
 const emit = defineEmits(['create-success']);
 
 //Call API
-const createCategory = async (data: itemCategory) => {
+const createCategory = async (data: categoryItem) => {
   try {
     isLoading.value = true;
     const response = await CategoryServices.createCategory(data);
