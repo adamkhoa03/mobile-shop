@@ -5,6 +5,7 @@ const vi = {
   createNew: 'Tạo mới',
   cancel: 'Hủy bỏ',
   edit: 'Sửa',
+  close: 'Đóng',
   update: 'Cập nhật',
   delete: 'Xóa',
   detail: 'Chi tiết',
@@ -12,6 +13,7 @@ const vi = {
   vietnamese: 'Tiếng Việt',
   deleteConfirm: 'Bạn có muốn xóa không?',
   confirmDelete: 'Xác nhận xóa',
+  updatingData: 'Đang cập nhật dữ liệu...',
   category: {
     category: 'Danh mục',
     categoryName: 'Tên danh mục',

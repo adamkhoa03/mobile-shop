@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import constants from '@/constants.ts';
+import { ref } from 'vue';
 import { useCategoryForm } from '@/views/category/list/components/configs/useCategoryForm.ts';
+import { type categoryItem } from '@/views/category/types/apis.ts';
 
+//Services
+import { CategoryServices } from '@/views/category/services/categoryServices.ts';
+import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
+
+//Handling Form
 const {
   t,
   name,
@@ -17,26 +24,44 @@ const {
   listCategoryStatus
 } = useCategoryForm();
 
-const addCategory = () => {};
-const onSubmit = handleSubmit((value) => {
-  console.log(value);
+//Handling event
+const onSubmit = handleSubmit(async (value) => {
+  const data = {
+    brand: value.name,
+    status: value.status,
+    description: value.description
+  };
+  await createCategory(data);
   resetForm();
   dialog.value = false;
+  emit('create-success');
+  showSnackbar('Tạo thành công!', 'success');
 });
+
+//Reactive state
+const isLoading = ref(false);
+
+//Emits
+const emit = defineEmits(['create-success']);
+
+//Call API
+const createCategory = async (data: categoryItem) => {
+  try {
+    isLoading.value = true;
+    const response = await CategoryServices.createCategory(data);
+    if (response && response.status === 200) {
+      isLoading.value = false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <template>
   <v-dialog v-model="dialog" :max-width="constants.MAX_WIDTH_500" persistent :scrollable="true" :max-height="constants.MAX_HEIGHT_600">
     <template v-slot:activator="{ props }">
-      <v-btn
-        v-bind="props"
-        class="mx-2"
-        color="primary"
-        prepend-icon="mdi-plus"
-        text="Thêm danh mục"
-        variant="flat"
-        @click="addCategory"
-      ></v-btn>
+      <v-btn v-bind="props" class="mx-2" color="primary" prepend-icon="mdi-plus" text="Thêm danh mục" variant="flat"></v-btn>
     </template>
 
     <template v-slot:default>

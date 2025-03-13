@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router';
 import CoreDrawer from '@/layouts/components/Drawer/Drawer.vue';
 import CoreAppBar from '@/layouts/components/AppBar/AppBar.vue';
 import CoreFooter from '@/layouts/components/Footer/Footer.vue';
+import SnackBar from '@/components/base/SnackBar.vue';
 </script>
 
 <template>
@@ -24,5 +25,6 @@ import CoreFooter from '@/layouts/components/Footer/Footer.vue';
         </v-container>
       </v-main>
     </v-app>
+    <SnackBar />
   </v-locale-provider>
 </template>
