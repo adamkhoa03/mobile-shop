@@ -5,6 +5,7 @@ const vi = {
   createNew: 'Tạo mới',
   cancel: 'Hủy bỏ',
   edit: 'Sửa',
+  close: 'Đóng',
   update: 'Cập nhật',
   delete: 'Xóa',
   detail: 'Chi tiết',

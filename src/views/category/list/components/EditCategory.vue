@@ -7,6 +7,7 @@ import { CategoryServices } from '@/views/category/services/categoryServices.ts'
 //Constant and config
 import constants from '@/constants.ts';
 import { useCategoryForm } from '@/views/category/list/components/configs/useCategoryForm.ts';
+import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
 
 const {
   t,
@@ -76,6 +77,7 @@ const updateCategory = async (id: number, data: Record<string, unknown>) => {
     emit('update-success');
     isLoading.value = false;
     dialog.value = false;
+    showSnackbar('Cập nhật thành công!', 'success');
   } catch (error) {
     console.log(error);
   }

@@ -24,7 +24,7 @@ export class CategoryServices extends BaseServices {
   static async updateCategory(id: number, data: Record<string, unknown>) {
     try {
       const response = await this.request().put(`${apis.UPDATE_CATEGORY}/${id}`, data);
-      return response.data;
+      return this.handleSuccess(response);
     } catch (error) {
       this.handleError(error);
     }
@@ -33,7 +33,16 @@ export class CategoryServices extends BaseServices {
   static async deleteCategory(id: number) {
     try {
       const response = await this.request().delete(`${apis.DELETE_CATEGORY}/${id}`);
-      return response.data;
+      return this.handleSuccess(response);
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  static async createCategory(data) {
+    try {
+      const response = await this.request().post(apis.CREATE_CATEGORY, data);
+      return this.handleSuccess(response);
     } catch (error) {
       this.handleError(error);
     }

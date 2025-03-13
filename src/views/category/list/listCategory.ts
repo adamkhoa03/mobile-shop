@@ -5,6 +5,4 @@ const headers = [
   { title: 'Thao tác', align: 'end', key: 'action', sortable: false }
 ] as const; // Readonly
 
-
-
 export { headers };

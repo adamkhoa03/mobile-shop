@@ -13,6 +13,9 @@ import DialogConfirm from '@/components/shared/DialogConfirm.vue';
 import { CategoryServices } from '@/views/category/services/categoryServices.ts';
 import { headers } from '@/views/category/list/listCategory.ts';
 
+//Snackbar
+import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
+
 const { t } = useI18n();
 
 // Reactive state
@@ -75,6 +78,7 @@ const onDelete = async () => {
   if (!categoryItemID.value) return;
   await deleteCategory(categoryItemID.value);
   refreshData();
+  showSnackbar('Xóa thành công!', 'error');
 };
 
 const refreshData = () => {
@@ -102,7 +106,7 @@ onMounted(getCategories);
     </v-responsive>
 
     <!--    Create-->
-    <create-category />
+    <create-category @create-success="refreshData" />
 
     <!--    EndCreate-->
     <advance-search />
