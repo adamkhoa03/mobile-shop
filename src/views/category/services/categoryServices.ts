@@ -1,6 +1,7 @@
 import { BaseServices } from '@/services/baseServices.ts';
 import apis from '@/views/category/services/apis.ts';
 import { formatQuery, type paramSearchInterface } from '@/services/utils.ts';
+import { type categoryItem } from '@/views/category/types/apis.ts';
 
 export class CategoryServices extends BaseServices {
   static async getCategories(searchParams: paramSearchInterface) {
@@ -39,7 +40,7 @@ export class CategoryServices extends BaseServices {
     }
   }
 
-  static async createCategory(data) {
+  static async createCategory(data: categoryItem) {
     try {
       const response = await this.request().post(apis.CREATE_CATEGORY, data);
       return this.handleSuccess(response);

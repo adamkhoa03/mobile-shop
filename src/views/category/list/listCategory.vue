@@ -12,6 +12,7 @@ import DialogConfirm from '@/components/shared/DialogConfirm.vue';
 // Services & Constants
 import { CategoryServices } from '@/views/category/services/categoryServices.ts';
 import { headers } from '@/views/category/list/listCategory.ts';
+import { type itemTable } from '@/views/category/types/apis.ts';
 
 //Snackbar
 import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
@@ -19,7 +20,7 @@ import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
 const { t } = useI18n();
 
 // Reactive state
-const dataTable = ref<categoryResponse[]>([]);
+const dataTable = ref<itemTable[]>([]);
 const categoryItemID = ref<number | undefined>(undefined);
 const contentDelete = ref('');
 const dialogEdit = ref<boolean>(false);
@@ -28,13 +29,6 @@ const loading = ref(false);
 
 // Computed
 const breadCrumbs = computed(() => [t('category.category')]);
-
-// Interface
-interface categoryResponse {
-  id: number;
-  brand: string;
-  status: number;
-}
 
 //Call API
 const getCategories = async () => {
@@ -67,7 +61,7 @@ const handleEdit = (item: { id: number }) => {
   dialogEdit.value = true;
 };
 
-const handleDelete = (item: categoryResponse) => {
+const handleDelete = (item: itemTable) => {
   contentDelete.value = `${t('category.category')}: ${item.brand}`;
   categoryItemID.value = Number(item.id);
   dialogDelete.value = true;
