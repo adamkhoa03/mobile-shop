@@ -3,6 +3,7 @@ const api = {
   DETAIL_CATEGORY: '/categories',
   CREATE_CATEGORY: '/categories',
   UPDATE_CATEGORY: '/categories/',
-  DELETE_CATEGORY: '/categories/'
-}
-export default api
+  DELETE_CATEGORY: '/categories/',
+  QUICK_SEARCH: '/categories/'
+};
+export default api;
