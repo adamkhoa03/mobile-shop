@@ -20,7 +20,7 @@ jobs:
             pnpm install
 
       - name: Build Vue 3 + Vite
-        run: pnpm run build -- --base=/base-v3/
+        run: pnpm run build -- --base=/mobile-shop/
       
       - name: Deploy into github page
         uses: peaceiris/actions-gh-pages@v4
