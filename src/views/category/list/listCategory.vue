@@ -17,8 +17,8 @@ const { t } = useI18n();
 
 // Reactive state
 const dataTable = ref<categoryResponse[]>([]);
-const idEdit = ref<number | undefined>(undefined);
-const itemDelete = ref<categoryResponse | null>(null);
+const categoryItemID = ref<number | undefined>(undefined);
+const contentDelete = ref('');
 const dialogEdit = ref<boolean>(false);
 const dialogDelete = ref<boolean>(false);
 const loading = ref(false);
@@ -48,16 +48,33 @@ const getCategories = async () => {
   }
 };
 
+const deleteCategory = async (id: number) => {
+  loading.value = true;
+  try {
+    await CategoryServices.deleteCategory(id);
+    loading.value = false;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //Event handle
-const onEdit = (item: { id: number }) => {
-  idEdit.value = Number(item.id);
+const handleEdit = (item: { id: number }) => {
+  categoryItemID.value = Number(item.id);
   dialogEdit.value = true;
 };
 
-const onDelete = (item: categoryResponse) => {
-  itemDelete.value = item;
+const handleDelete = (item: categoryResponse) => {
+  contentDelete.value = `${t('category.category')}: ${item.brand}`;
+  categoryItemID.value = Number(item.id);
   dialogDelete.value = true;
-  console.log(itemDelete.value.brand);
+};
+
+const onDelete = async () => {
+  dialogDelete.value = false;
+  if (!categoryItemID.value) return;
+  await deleteCategory(categoryItemID.value);
+  refreshData();
 };
 
 const refreshData = () => {
@@ -109,14 +126,14 @@ onMounted(getCategories);
         <div class="d-flex align-center justify-end">
           <v-tooltip :text="t('edit')">
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" variant="text" icon @click="onEdit(item)">
+              <v-btn v-bind="props" variant="text" icon @click="handleEdit(item)">
                 <v-img width="25" class="pointer" src="@/assets/pencil.svg"></v-img>
               </v-btn>
             </template>
           </v-tooltip>
           <v-tooltip :text="t('delete')">
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" variant="text" icon @click="onDelete(item)">
+              <v-btn v-bind="props" variant="text" icon @click="handleDelete(item)">
                 <v-img width="25" class="pointer" src="@/assets/icon-delete.svg"></v-img>
               </v-btn>
             </template>
@@ -127,10 +144,10 @@ onMounted(getCategories);
   </div>
 
   <!--  Dialog Edit Category-->
-  <EditCategory v-model:dialog="dialogEdit" :id="idEdit" @update-success="refreshData" />
+  <EditCategory v-model:dialog="dialogEdit" :id="categoryItemID" @update-success="refreshData" />
 
   <!--  Dialog delete-->
-  <DialogConfirm v-model:dialog="dialogDelete" />
+  <DialogConfirm v-model:dialog="dialogDelete" :text="contentDelete" @confirmed="onDelete" />
 
   <base-dialog-loading :isLoading="loading" />
 </template>

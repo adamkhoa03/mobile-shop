@@ -29,4 +29,13 @@ export class CategoryServices extends BaseServices {
       this.handleError(error);
     }
   }
+
+  static async deleteCategory(id: number) {
+    try {
+      const response = await this.request().delete(`${apis.DELETE_CATEGORY}/${id}`);
+      return response.data;
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
 }
