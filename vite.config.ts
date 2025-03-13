@@ -5,7 +5,7 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/base-v3/",
+  base: "/mobile-shop/",
   plugins: [
     vue({
       template: {
