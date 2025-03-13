@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import constants from '@/constants.ts';
+import { toRef, watchEffect, defineEmits, ref } from 'vue';
 
+//Services
+import { CategoryServices } from '@/views/category/services/categoryServices.ts';
+
+//Constant and config
+import constants from '@/constants.ts';
 import { useCategoryForm } from '@/views/category/list/components/configs/useCategoryForm.ts';
+import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
 
 const {
   t,
@@ -14,23 +20,73 @@ const {
   errors,
   handleSubmit,
   resetForm,
-  listCategoryStatus
+  listCategoryStatus,
+  setValues
 } = useCategoryForm();
 
+//Define props and emit
 const props = defineProps({
   id: {
     type: Number,
     default: undefined
   }
 });
+const emit = defineEmits(['update-success']);
 
+//Reactive data
+const idRef = toRef(props, 'id');
+const isLoading = ref(false);
+
+//Model binding
 const dialog = defineModel('dialog', { default: false });
 
-const onUpdate = handleSubmit((value) => {
-  console.log(value);
-  console.log(props.id);
+//Event handle
+const onUpdate = handleSubmit(async (value) => {
+  if (!idRef.value) return;
+  const params = {
+    brand: value.name,
+    status: value.status,
+    description: value.description
+  };
+  await updateCategory(idRef.value, params);
   resetForm();
-  dialog.value = false;
+});
+
+//Call API
+const getDetailCategory = async (id: number) => {
+  isLoading.value = true;
+  try {
+    const response = await CategoryServices.getDetail(id);
+    if (response?.status === 200 && response.data) {
+      setValues({
+        name: response.data.brand,
+        status: response.data.status,
+        description: response.data.description
+      });
+    }
+    isLoading.value = false;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateCategory = async (id: number, data: Record<string, unknown>) => {
+  isLoading.value = true;
+  try {
+    await CategoryServices.updateCategory(id, data);
+    emit('update-success');
+    isLoading.value = false;
+    dialog.value = false;
+    showSnackbar('Cập nhật thành công!', 'success');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Life cycle hook
+watchEffect(() => {
+  if (!idRef.value) return;
+  if (dialog.value) getDetailCategory(idRef.value);
 });
 </script>
 
@@ -81,6 +137,8 @@ const onUpdate = handleSubmit((value) => {
       </v-card-actions>
     </v-card>
   </v-dialog>
+
+  <base-dialog-loading :isLoading="isLoading" />
 </template>
 
 <style scoped lang="scss"></style>

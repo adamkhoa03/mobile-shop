@@ -12,7 +12,7 @@ export function useCategoryForm() {
     status: number().required().default(1).label(t('category.categoryStatus')),
     description: string().required().default('').label(t('category.description'))
   });
-  const { errors, defineField, handleSubmit, resetForm } = useForm({
+  const { errors, defineField, handleSubmit, resetForm, setValues } = useForm({
     validationSchema: toTypedSchema(schema)
   });
 
@@ -32,6 +32,7 @@ export function useCategoryForm() {
     errors,
     handleSubmit,
     resetForm,
+    setValues,
     dialog,
     listCategoryStatus,
     name,
@@ -39,6 +40,7 @@ export function useCategoryForm() {
     status,
     categoryStatusAttr,
     description,
-    categoryDescriptionAttr
+    categoryDescriptionAttr,
+
   };
 }
