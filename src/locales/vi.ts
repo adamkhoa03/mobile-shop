@@ -6,6 +6,7 @@ const vi = {
   cancel: 'Hủy bỏ',
   edit: 'Sửa',
   close: 'Đóng',
+  noData:'Không có dữ liệu',
   update: 'Cập nhật',
   delete: 'Xóa',
   detail: 'Chi tiết',

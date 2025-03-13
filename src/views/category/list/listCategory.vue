@@ -26,6 +26,7 @@ const contentDelete = ref('');
 const dialogEdit = ref<boolean>(false);
 const dialogDelete = ref<boolean>(false);
 const loading = ref(false);
+const searchKeyword = ref('');
 
 // Computed
 const breadCrumbs = computed(() => [t('category.category')]);
@@ -52,6 +53,22 @@ const deleteCategory = async (id: number) => {
     loading.value = false;
   } catch (error) {
     console.error(error);
+  }
+};
+
+const quickSearch = async () => {
+  loading.value = true;
+  const params = { search: searchKeyword.value };
+  try {
+    const response = await CategoryServices.quickSearch(params);
+    if (response?.status === 200) {
+      dataTable.value = response.data;
+    }
+  } catch (error) {
+    console.error(error);
+    dataTable.value = [];
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -90,12 +107,14 @@ onMounted(getCategories);
     <!--    Search-->
     <v-responsive max-width="344">
       <v-text-field
+        v-model.trim="searchKeyword"
         ref="textField"
         density="compact"
         append-inner-icon="mdi-magnify"
         hide-details
         variant="outlined"
-        placeholder="Typing search"
+        placeholder="Nhập tên để tìm kiếm..."
+        @keyup.enter="quickSearch"
       ></v-text-field>
     </v-responsive>
 
@@ -108,7 +127,7 @@ onMounted(getCategories);
 
   <!--  Content-->
   <div class="mt-7">
-    <v-data-table-virtual :headers="headers" :items="dataTable" fixed-header item-value="name">
+    <v-data-table-virtual :headers="headers" :items="dataTable" fixed-header item-value="name" :no-data-text="t('noData')">
       <!--  Brand-->
       <template v-slot:[`item.brand`]="{ item }">
         <popup-category :brand="item.brand" />
