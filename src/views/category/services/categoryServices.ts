@@ -48,4 +48,13 @@ export class CategoryServices extends BaseServices {
       this.handleError(error);
     }
   }
+
+  static async quickSearch(data: paramSearchInterface) {
+    try {
+      const response = await this.request().get(`${apis.QUICK_SEARCH}?${formatQuery(data)}`);
+      return this.handleSuccess(response);
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
 }

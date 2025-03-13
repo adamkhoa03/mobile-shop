@@ -6,6 +6,7 @@ const en = {
   cancel: 'Cancel',
   edit: 'Edit',
   close: 'Close',
+  noData: 'No data available',
   update: 'Update',
   delete: 'Delete',
   detail: 'Detail',
