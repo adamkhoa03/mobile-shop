@@ -14,7 +14,7 @@ export class responseWrapper {
 
 // Params search interface
 export interface paramSearchInterface {
-  [key: string]: string | number;
+  [key: string]: unknown;
 }
 
 export const formatQuery = (params: paramSearchInterface) => {
