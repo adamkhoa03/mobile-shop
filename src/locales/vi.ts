@@ -6,7 +6,7 @@ const vi = {
   cancel: 'Hủy bỏ',
   edit: 'Sửa',
   close: 'Đóng',
-  noData:'Không có dữ liệu',
+  noData: 'Không có dữ liệu',
   update: 'Cập nhật',
   delete: 'Xóa',
   detail: 'Chi tiết',
@@ -16,6 +16,8 @@ const vi = {
   confirmDelete: 'Xác nhận xóa',
   updatingData: 'Đang cập nhật dữ liệu...',
   status: 'Trạng thái',
+  name: 'Tên',
+  code: 'Mã',
   category: {
     category: 'Danh mục',
     categoryName: 'Tên danh mục',

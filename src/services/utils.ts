@@ -22,7 +22,7 @@ export const formatQuery = (params: paramSearchInterface) => {
   const values = Object();
   keys.map((k) => {
     const val = params[k];
-    if (val) {
+    if (val || val == 0) {
       values[k] = val;
     }
   });

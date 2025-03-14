@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import { mergeProps, ref } from 'vue';
+import { mergeProps, ref, toRef } from 'vue';
 
+// Props and Emits
+const emits = defineEmits(['search', 'clear']);
+const props = defineProps(['dataCreateUI', 'formData']);
+
+//Reactive state
 const openMenu = ref(false);
-const searchText = ref('');
+const formRef = toRef(props, 'formData');
 
+//Event Handle
 const search = () => {
+  openMenu.value = false;
+  emits('search');
+};
+const clear = () => {
+  emits('clear');
   openMenu.value = false;
 };
 </script>
@@ -21,21 +32,34 @@ const search = () => {
     </template>
     <v-card title="Tìm kiếm nâng cao" variant="outlined">
       <v-card-text>
-        <v-text-field label="Tên" variant="outlined" density="compact" hide-details class="mb-3"></v-text-field>
-        <v-select
-          label="Trạng thái"
-          variant="outlined"
-          density="compact"
-          :items="['Hoạt động', 'Không hoạt động']"
-          hide-details
-          class="mb-3"
-        ></v-select>
-        <v-text-field v-model="searchText" label="Mã" variant="outlined" density="compact" hide-details></v-text-field>
+        <template v-for="(item, index) in dataCreateUI" :key="index">
+          <v-text-field
+            v-if="item.type === 'textField'"
+            v-model="formRef[item.ref]"
+            :label="item.label"
+            variant="outlined"
+            density="compact"
+            hide-details
+            class="mb-3"
+          ></v-text-field>
+
+          <v-select
+            v-if="item.type === 'select'"
+            v-model="formRef[item.ref]"
+            :label="item.label"
+            variant="outlined"
+            density="compact"
+            :items="item.items"
+            :item-value="item.value"
+            hide-details
+            class="mb-3"
+          ></v-select>
+        </template>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-btn color="error" variant="flat" @click="clear">Xóa bộ lọc</v-btn>
         <v-btn color="primary" variant="flat" @click="search">Tìm kiếm</v-btn>
-        <v-btn color="error" variant="flat">Xóa bộ lọc</v-btn>
       </v-card-actions>
     </v-card>
   </v-menu>
