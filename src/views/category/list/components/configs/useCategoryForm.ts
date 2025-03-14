@@ -10,6 +10,7 @@ export function useCategoryForm() {
   const schema = object({
     name: string().required().default('').label(t('category.categoryName')),
     status: number().required().default(1).label(t('category.categoryStatus')),
+    code: string().required().default('').label(t('category.code')),
     description: string().required().default('').label(t('category.description'))
   });
   const { errors, defineField, handleSubmit, resetForm, setValues } = useForm({
@@ -19,6 +20,7 @@ export function useCategoryForm() {
   //Defined and binding field
   const [name, categoryNameAttr] = defineField('name');
   const [status, categoryStatusAttr] = defineField('status');
+  const [code, categoryCodeAttr] = defineField('code');
   const [description, categoryDescriptionAttr] = defineField('description');
 
   const dialog = ref(false);
@@ -41,6 +43,7 @@ export function useCategoryForm() {
     categoryStatusAttr,
     description,
     categoryDescriptionAttr,
-
+    code,
+    categoryCodeAttr
   };
 }

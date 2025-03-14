@@ -14,7 +14,7 @@ export class responseWrapper {
 
 // Params search interface
 export interface paramSearchInterface {
-  [key: string]: string | number;
+  [key: string]: unknown;
 }
 
 export const formatQuery = (params: paramSearchInterface) => {
@@ -22,7 +22,7 @@ export const formatQuery = (params: paramSearchInterface) => {
   const values = Object();
   keys.map((k) => {
     const val = params[k];
-    if (val) {
+    if (val || val == 0) {
       values[k] = val;
     }
   });

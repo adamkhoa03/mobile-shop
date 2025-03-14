@@ -6,7 +6,7 @@ const vi = {
   cancel: 'Hủy bỏ',
   edit: 'Sửa',
   close: 'Đóng',
-  noData:'Không có dữ liệu',
+  noData: 'Không có dữ liệu',
   update: 'Cập nhật',
   delete: 'Xóa',
   detail: 'Chi tiết',
@@ -15,6 +15,9 @@ const vi = {
   deleteConfirm: 'Bạn có muốn xóa không?',
   confirmDelete: 'Xác nhận xóa',
   updatingData: 'Đang cập nhật dữ liệu...',
+  status: 'Trạng thái',
+  name: 'Tên',
+  code: 'Mã',
   category: {
     category: 'Danh mục',
     categoryName: 'Tên danh mục',
@@ -26,6 +29,7 @@ const vi = {
     createNewCategory: 'Tạo danh mục mới',
     categoryStatus: 'Trạng thái danh mục',
     description: 'Mô tả',
+    code: 'Mã',
     placeHolders: {
       typeCategoryName: 'Nhập tên danh mục',
       typeDescription: 'Nhập mô tả',
