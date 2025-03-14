@@ -21,7 +21,9 @@ const {
   handleSubmit,
   resetForm,
   dialog,
-  listCategoryStatus
+  listCategoryStatus,
+  code,
+  categoryCodeAttr
 } = useCategoryForm();
 
 //Handling event
@@ -29,6 +31,7 @@ const onSubmit = handleSubmit(async (value) => {
   const data = {
     brand: value.name,
     status: value.status,
+    code: value.code,
     description: value.description
   };
   await createCategory(data);
@@ -77,6 +80,16 @@ const createCategory = async (data: categoryItem) => {
             variant="outlined"
             :placeholder="t('category.placeHolders.typeCategoryName')"
             :error-messages="errors.name"
+          ></v-text-field>
+          <v-label class="text-capitalize mb-1" :text="t('category.code')"></v-label>
+          <v-text-field
+            v-model="code"
+            v-bind="categoryCodeAttr"
+            :counter="constants.MAX_LENGTH_TITLE"
+            :maxlength="constants.MAX_LENGTH_TITLE"
+            variant="outlined"
+            :placeholder="t('category.placeHolders.code')"
+            :error-messages="errors.code"
           ></v-text-field>
           <v-label class="text-capitalize mb-1" :text="t('category.categoryStatus')"></v-label>
           <v-select

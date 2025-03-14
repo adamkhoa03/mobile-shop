@@ -8,6 +8,7 @@ import { CategoryServices } from '@/views/category/services/categoryServices.ts'
 import constants from '@/constants.ts';
 import { useCategoryForm } from '@/views/category/list/components/configs/useCategoryForm.ts';
 import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
+import { type categoryItem } from '@/views/category/types/apis.ts';
 
 const {
   t,
@@ -21,7 +22,9 @@ const {
   handleSubmit,
   resetForm,
   listCategoryStatus,
-  setValues
+  setValues,
+  code,
+  categoryCodeAttr
 } = useCategoryForm();
 
 //Define props and emit
@@ -45,6 +48,7 @@ const onUpdate = handleSubmit(async (value) => {
   if (!idRef.value) return;
   const params = {
     brand: value.name,
+    code: value.code,
     status: value.status,
     description: value.description
   };
@@ -60,6 +64,7 @@ const getDetailCategory = async (id: number) => {
     if (response?.status === 200 && response.data) {
       setValues({
         name: response.data.brand,
+        code: response.data.code,
         status: response.data.status,
         description: response.data.description
       });
@@ -70,7 +75,7 @@ const getDetailCategory = async (id: number) => {
   }
 };
 
-const updateCategory = async (id: number, data: Record<string, unknown>) => {
+const updateCategory = async (id: number, data: categoryItem) => {
   isLoading.value = true;
   try {
     await CategoryServices.updateCategory(id, data);
@@ -104,6 +109,16 @@ watchEffect(() => {
           variant="outlined"
           :placeholder="t('category.placeHolders.typeCategoryName')"
           :error-messages="errors.name"
+        ></v-text-field>
+        <v-label class="text-capitalize mb-1" :text="t('category.code')"></v-label>
+        <v-text-field
+          v-model="code"
+          v-bind="categoryCodeAttr"
+          :counter="constants.MAX_LENGTH_TITLE"
+          :maxlength="constants.MAX_LENGTH_TITLE"
+          variant="outlined"
+          :placeholder="t('category.placeHolders.code')"
+          :error-messages="errors.code"
         ></v-text-field>
         <v-label class="text-capitalize mb-1" :text="t('category.categoryStatus')"></v-label>
         <v-select

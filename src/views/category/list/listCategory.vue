@@ -13,11 +13,15 @@ import DialogConfirm from '@/components/shared/DialogConfirm.vue';
 import { CategoryServices } from '@/views/category/services/categoryServices.ts';
 import { headers } from '@/views/category/list/listCategory.ts';
 import { type itemTable } from '@/views/category/types/apis.ts';
+import { useCategoryForm } from '@/views/category/list/components/configs/useCategoryForm.ts';
 
 //Snackbar
 import { showSnackbar } from '@/utils/composables/useSnackBar.ts';
 
 const { t } = useI18n();
+
+//Handling Form
+const { listCategoryStatus } = useCategoryForm();
 
 // Reactive state
 const dataTable = ref<itemTable[]>([]);
@@ -27,6 +31,32 @@ const dialogEdit = ref<boolean>(false);
 const dialogDelete = ref<boolean>(false);
 const loading = ref(false);
 const searchKeyword = ref('');
+const dataCreateSearchAdvance = ref([
+  {
+    ref: 'brand',
+    label: t('category.categoryName'),
+    type: 'textField',
+    value: null
+  },
+  {
+    ref: 'status',
+    label: t('status'),
+    type: 'select',
+    items: listCategoryStatus,
+    value: 'value'
+  },
+  {
+    ref: 'code',
+    label: t('code'),
+    type: 'textField',
+    value: null
+  }
+]);
+const formDataAdvanceSearch = ref<Record<string, string | number | null>>({
+  brand: null,
+  status: null,
+  code: null
+});
 
 // Computed
 const breadCrumbs = computed(() => [t('category.category')]);
@@ -70,6 +100,36 @@ const quickSearch = async () => {
   } finally {
     loading.value = false;
   }
+};
+
+const searchAdvance = async () => {
+  const params = Object();
+  if (formDataAdvanceSearch.value.brand) {
+    params.brand = formDataAdvanceSearch.value.brand;
+  }
+  if (formDataAdvanceSearch.value.status == 0 || formDataAdvanceSearch.value.status) {
+    params.status = formDataAdvanceSearch.value.status;
+  }
+  if (formDataAdvanceSearch.value.code) {
+    params.code = formDataAdvanceSearch.value.code;
+  }
+  try {
+    loading.value = true;
+    const response = await CategoryServices.searchAdvance(params);
+    if (response?.status === 200) {
+      dataTable.value = response?.data;
+      loading.value = false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const clearAdvanceSearch = async () => {
+  formDataAdvanceSearch.value.brand = null;
+  formDataAdvanceSearch.value.status = null;
+  formDataAdvanceSearch.value.code = null;
+  refreshData();
 };
 
 //Event handle
@@ -122,7 +182,12 @@ onMounted(getCategories);
     <create-category @create-success="refreshData" />
 
     <!--    EndCreate-->
-    <advance-search />
+    <advance-search
+      :dataCreateUI="dataCreateSearchAdvance"
+      :form-data="formDataAdvanceSearch"
+      @search="searchAdvance"
+      @clear="clearAdvanceSearch"
+    />
   </div>
 
   <!--  Content-->
