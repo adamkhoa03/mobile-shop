@@ -18,6 +18,7 @@ const clear = () => {
   emits('clear');
   openMenu.value = false;
 };
+console.log(props.dataCreateUI);
 </script>
 
 <template>
@@ -42,6 +43,16 @@ const clear = () => {
             hide-details
             class="mb-3"
           ></v-text-field>
+
+          <v-autocomplete
+            v-if="item.type === 'autocomplete'"
+            :label="item.label"
+            :item-title="item.title"
+            :item-value="item.value"
+            variant="outlined"
+            return-object
+            :items="item.items"
+          ></v-autocomplete>
 
           <v-select
             v-if="item.type === 'select'"
