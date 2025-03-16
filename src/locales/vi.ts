@@ -42,10 +42,25 @@ const vi = {
   },
   phones: {
     name: 'Điện thoại',
+    deviceName: 'Tên sản phẩm',
+    code: 'Mã sản phẩm',
+    description: 'Mô tả',
+    price: 'Giá sản phẩm',
+    category: 'Danh mục',
+    quantity: 'Số lượng sản phẩm',
     explanation: 'Quản lý điện thoại',
-    deviceList: 'Danh sách thiết bị',
-    warrantyList: 'Thiết bị bảo hành',
-    inventoryList: 'Tồn kho'
+    deviceList: 'Danh sách sản phẩm',
+    warrantyList: 'Sản phẩm bảo hành',
+    inventoryList: 'Tồn kho',
+    product: 'Sản phẩm',
+    placeHolder: {
+      name: 'Nhập tên  sản phẩm',
+      code: 'Nhập mã  sản phẩm',
+      description: 'Nhập mô tả',
+      category: 'Chọn danh mục',
+      price: 'Nhập giá sản phẩm',
+      quantity: 'Nhập số lượng sản phẩm'
+    }
   },
   computer: {
     name: 'Máy tính',

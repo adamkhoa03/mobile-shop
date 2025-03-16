@@ -18,12 +18,13 @@ export function usePhone() {
       value: null
     },
     {
-      ref: 'categoryID',
+      ref: 'category_id',
       label: t('category.categoryName'),
       type: 'autocomplete',
       items: [],
-      value: 'value',
-      title: 'brand'
+      value: 'id',
+      title: 'brand',
+      returnObject: false
     },
     {
       ref: 'status',

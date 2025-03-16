@@ -18,7 +18,6 @@ const clear = () => {
   emits('clear');
   openMenu.value = false;
 };
-console.log(props.dataCreateUI);
 </script>
 
 <template>
@@ -46,12 +45,13 @@ console.log(props.dataCreateUI);
 
           <v-autocomplete
             v-if="item.type === 'autocomplete'"
+            v-model="formRef[item.ref]"
             :label="item.label"
             :item-title="item.title"
             :item-value="item.value"
             variant="outlined"
-            return-object
             :items="item.items"
+            :return-object="item.returnObject"
           ></v-autocomplete>
 
           <v-select
@@ -62,6 +62,7 @@ console.log(props.dataCreateUI);
             density="compact"
             :items="item.items"
             :item-value="item.value"
+            :item-title="item.title"
             hide-details
             class="mb-3"
           ></v-select>
