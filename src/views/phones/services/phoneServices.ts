@@ -1,6 +1,6 @@
 import api from '@/views/phones/services/api.ts';
 import { BaseServices } from '@/services/baseServices.ts';
-import type { categoryItem } from '@/views/category/types/apis.ts';
+import { type phoneItem } from '@/views/phones/composable/useFormPhone.ts';
 import { formatQuery, type paramSearchInterface } from '@/services/utils.ts';
 
 export class phoneServices extends BaseServices {
@@ -22,7 +22,7 @@ export class phoneServices extends BaseServices {
     }
   }
 
-  static async updatePhone(id: number, data: Record<string, unknown>) {
+  static async updatePhone(id: number, data: phoneItem) {
     try {
       const response = await this.request().put(`${api.UPDATE_PHONE}/${id}`, data);
       return this.handleSuccess(response);
@@ -40,7 +40,7 @@ export class phoneServices extends BaseServices {
     }
   }
 
-  static async createPhone(data: categoryItem) {
+  static async createPhone(data: phoneItem) {
     try {
       const response = await this.request().post(api.CREATE_PHONE, data);
       return this.handleSuccess(response);
