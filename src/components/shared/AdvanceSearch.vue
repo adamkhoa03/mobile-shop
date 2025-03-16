@@ -43,6 +43,17 @@ const clear = () => {
             class="mb-3"
           ></v-text-field>
 
+          <v-autocomplete
+            v-if="item.type === 'autocomplete'"
+            v-model="formRef[item.ref]"
+            :label="item.label"
+            :item-title="item.title"
+            :item-value="item.value"
+            variant="outlined"
+            :items="item.items"
+            :return-object="item.returnObject"
+          ></v-autocomplete>
+
           <v-select
             v-if="item.type === 'select'"
             v-model="formRef[item.ref]"
@@ -51,6 +62,7 @@ const clear = () => {
             density="compact"
             :items="item.items"
             :item-value="item.value"
+            :item-title="item.title"
             hide-details
             class="mb-3"
           ></v-select>
