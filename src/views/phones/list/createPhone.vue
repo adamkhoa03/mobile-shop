@@ -36,7 +36,7 @@ const loading = ref(false);
 const createPhone = async (data: phoneItem) => {
   try {
     loading.value = true;
-    const response = await phoneServices.createPhone(data);
+    const response = await phoneServices.createPhone(data.category.id, data);
     if (response?.status === 201) {
       showSnackbar('Tạo thành công!', 'success');
       emit('create-success');

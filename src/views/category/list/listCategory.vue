@@ -64,7 +64,19 @@ const breadCrumbs = computed(() => [t('category.category')]);
 //Call API
 const getCategories = async () => {
   loading.value = true;
-  const searchParams = { page: 1, limit: 100 };
+  const searchParams: { [key: string]: unknown } = { page: 1, limit: 100 };
+  if (searchKeyword.value) {
+    searchParams.search = searchKeyword.value;
+  }
+  if (formDataAdvanceSearch.value.brand) {
+    searchParams.brand = formDataAdvanceSearch.value.brand;
+  }
+  if (formDataAdvanceSearch.value.status == 0 || formDataAdvanceSearch.value.status) {
+    searchParams.status = formDataAdvanceSearch.value.status;
+  }
+  if (formDataAdvanceSearch.value.code) {
+    searchParams.code = formDataAdvanceSearch.value.code;
+  }
   try {
     const response = await CategoryServices.getCategories(searchParams);
     if (response?.status === 200) {
@@ -72,7 +84,10 @@ const getCategories = async () => {
     }
     loading.value = false;
   } catch (error) {
-    console.error('Lỗi khi lấy danh mục:', error);
+    console.error(error);
+    dataTable.value = [];
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -83,45 +98,6 @@ const deleteCategory = async (id: number) => {
     loading.value = false;
   } catch (error) {
     console.error(error);
-  }
-};
-
-const quickSearch = async () => {
-  loading.value = true;
-  const params = { search: searchKeyword.value };
-  try {
-    const response = await CategoryServices.quickSearch(params);
-    if (response?.status === 200) {
-      dataTable.value = response.data;
-    }
-  } catch (error) {
-    console.error(error);
-    dataTable.value = [];
-  } finally {
-    loading.value = false;
-  }
-};
-
-const searchAdvance = async () => {
-  const params = Object();
-  if (formDataAdvanceSearch.value.brand) {
-    params.brand = formDataAdvanceSearch.value.brand;
-  }
-  if (formDataAdvanceSearch.value.status == 0 || formDataAdvanceSearch.value.status) {
-    params.status = formDataAdvanceSearch.value.status;
-  }
-  if (formDataAdvanceSearch.value.code) {
-    params.code = formDataAdvanceSearch.value.code;
-  }
-  try {
-    loading.value = true;
-    const response = await CategoryServices.searchAdvance(params);
-    if (response?.status === 200) {
-      dataTable.value = response?.data;
-      loading.value = false;
-    }
-  } catch (error) {
-    console.log(error);
   }
 };
 
@@ -173,8 +149,8 @@ onMounted(getCategories);
         append-inner-icon="mdi-magnify"
         hide-details
         variant="outlined"
-        placeholder="Nhập tên để tìm kiếm..."
-        @keyup.enter="quickSearch"
+        placeholder="Nhập tên, mã sản phẩm tìm kiếm..."
+        @keyup.enter="getCategories"
       ></v-text-field>
     </v-responsive>
 
@@ -185,7 +161,7 @@ onMounted(getCategories);
     <advance-search
       :dataCreateUI="dataCreateSearchAdvance"
       :form-data="formDataAdvanceSearch"
-      @search="searchAdvance"
+      @search="getCategories"
       @clear="clearAdvanceSearch"
     />
   </div>

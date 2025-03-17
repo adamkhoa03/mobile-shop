@@ -9,7 +9,7 @@ export class phoneServices extends BaseServices {
       const response = await this.request().get(`${api.LIST_PHONES}?${formatQuery(searchParams)}`);
       return this.handleSuccess(response);
     } catch (error) {
-      console.log(error);
+      this.handleError(error);
     }
   }
 
@@ -22,27 +22,27 @@ export class phoneServices extends BaseServices {
     }
   }
 
-  static async updatePhone(id: number, data: phoneItem) {
+  static async updatePhone(categoryID: number, id: number, data: phoneItem) {
     try {
-      const response = await this.request().put(`${api.UPDATE_PHONE}/${id}`, data);
+      const response = await this.request().put(`categories/${categoryID}${api.UPDATE_PHONE}/${id}`, data);
       return this.handleSuccess(response);
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  static async deletePhone(id: number) {
+  static async deletePhone(categoryID: number, id: number) {
     try {
-      const response = await this.request().delete(`${api.DELETE_PHONE}/${id}`);
+      const response = await this.request().delete(`categories/${categoryID}${api.DELETE_PHONE}/${id}`);
       return this.handleSuccess(response);
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  static async createPhone(data: phoneItem) {
+  static async createPhone(categoryID: number, data: phoneItem) {
     try {
-      const response = await this.request().post(api.CREATE_PHONE, data);
+      const response = await this.request().post(`categories/${categoryID}${api.CREATE_PHONE}`, data);
       return this.handleSuccess(response);
     } catch (error) {
       this.handleError(error);

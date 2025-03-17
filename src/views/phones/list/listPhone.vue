@@ -27,6 +27,7 @@ const breadCrumbs = computed(() => [t('phones.name')]);
 const dataTable = ref<itemTable[]>([]);
 const dataCategory = ref([]);
 const phoneIDSelect = ref<number | undefined>(undefined);
+const itemSelect = ref<itemTable>();
 const contentDelete = ref('');
 const dialogEdit = ref<boolean>(false);
 const dialogDelete = ref<boolean>(false);
@@ -64,24 +65,24 @@ const getCategories = async () => {
 //Fetch list phones
 const getPhones = async () => {
   loading.value = true;
-  const searchParams = { page: 1, limit: 100 };
+  const searchParams: Record<string, unknown> = { page: 1, limit: 100 };
+  if (searchKeyword.value) {
+    searchParams.search = searchKeyword.value;
+  }
+  if (formDataAdvanceSearch.value.name) {
+    searchParams.name = formDataAdvanceSearch.value.name;
+  }
+  if (formDataAdvanceSearch.value.category_id) {
+    searchParams.category_id = formDataAdvanceSearch.value.category_id;
+  }
+  if (formDataAdvanceSearch.value.status) {
+    searchParams.status = formDataAdvanceSearch.value.status;
+  }
+  if (formDataAdvanceSearch.value.code) {
+    searchParams.code = formDataAdvanceSearch.value.code;
+  }
   try {
     const response = await phoneServices.getListPhones(searchParams);
-    if (response?.status === 200) {
-      dataTable.value = response.data;
-    }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    loading.value = false;
-  }
-};
-
-//Handle quick search
-const quickSearch = async (searchParams: Record<string, unknown>) => {
-  loading.value = true;
-  try {
-    const response = await phoneServices.quickSearch(searchParams);
     if (response?.status === 200) {
       dataTable.value = response.data;
     }
@@ -94,28 +95,6 @@ const quickSearch = async (searchParams: Record<string, unknown>) => {
 };
 
 //Event handle
-const search = () => {
-  const searchParams = { page: 1, limit: 100, name: searchKeyword.value };
-  quickSearch(searchParams);
-};
-const searchAdvance = () => {
-  const params = Object();
-  if (formDataAdvanceSearch.value.name) {
-    params.name = formDataAdvanceSearch.value.name;
-  }
-  if (formDataAdvanceSearch.value.category_id) {
-    params.category_id = formDataAdvanceSearch.value.category_id;
-  }
-  if (formDataAdvanceSearch.value.status) {
-    params.status = formDataAdvanceSearch.value.status;
-  }
-  if (formDataAdvanceSearch.value.code) {
-    params.code = formDataAdvanceSearch.value.code;
-  }
-  quickSearch(params);
-};
-
-//refresh data
 const refreshData = () => getPhones();
 
 //clear advance search
@@ -128,6 +107,7 @@ const handleEdit = (item: itemTable) => {
   dialogEdit.value = true;
 };
 const handleDelete = (item: itemTable) => {
+  itemSelect.value = item;
   phoneIDSelect.value = Number(item.id);
   contentDelete.value = `${t('phones.product')}: ${item.name}`;
   dialogDelete.value = true;
@@ -144,7 +124,8 @@ const onDelete = async () => {
 const deletePhone = async (id: number) => {
   try {
     loading.value = true;
-    await phoneServices.deletePhone(id);
+    if (!itemSelect.value) return;
+    await phoneServices.deletePhone(itemSelect.value.category.id, id);
     showSnackbar('Xóa thành công!', 'success');
   } catch (error) {
     console.log(error);
@@ -174,10 +155,10 @@ onMounted(() => {
         append-inner-icon="mdi-magnify"
         hide-details
         variant="outlined"
-        placeholder="Nhập tên để tìm kiếm..."
-        @keyup.enter="search"
+        placeholder="Nhập tên, mã sản phẩm để tìm kiếm..."
+        @keyup.enter="getPhones"
         clearable
-        @click:clear="search"
+        @click:clear="getPhones"
       ></v-text-field>
     </v-responsive>
 
@@ -188,7 +169,7 @@ onMounted(() => {
     <advance-search
       :dataCreateUI="dataCreateSearchAdvance"
       :form-data="formDataAdvanceSearch"
-      @search="searchAdvance"
+      @search="getPhones"
       @clear="clearAdvanceSearch"
     />
   </div>
@@ -198,6 +179,9 @@ onMounted(() => {
     <v-data-table :headers="headers" :items="dataTable" fixed-header hide-default-footer :no-data-text="t('noData')" items-per-page="-1">
       <template v-slot:[`item.category`]="{ item }">
         {{ item.category.brand }}
+      </template>
+      <template v-slot:[`item.price`]="{ item }">
+        {{ item.price.toLocaleString('vi-VN') }}
       </template>
 
       <!-- Action  -->
@@ -222,7 +206,7 @@ onMounted(() => {
     </v-data-table>
   </div>
 
-  <edit-phone v-model:dialog="dialogEdit" :data-category="dataCategory" :phone-id="phoneIDSelect" />
+  <edit-phone v-model:dialog="dialogEdit" :data-category="dataCategory" :phone-id="phoneIDSelect" @update-success="refreshData" />
 
   <!--  Dialog delete-->
   <DialogConfirm v-model:dialog="dialogDelete" :text="contentDelete" @confirmed="onDelete" />

@@ -76,7 +76,7 @@ const getDetailPhone = async () => {
 const updatePhone = async (id: number, data: phoneItem) => {
   try {
     loading.value = true;
-    await phoneServices.updatePhone(id, data);
+    await phoneServices.updatePhone(data.category.id, id, data);
     emits('update-success');
     dialog.value = false;
     showSnackbar('Cập nhật thành công!', 'success');
@@ -184,7 +184,7 @@ watch(isDialogOpen, (open) => {
       <v-card-actions>
         <v-spacer />
         <v-btn variant="flat" color="error" @click="dialog = false">{{ t('cancel') }}</v-btn>
-        <v-btn prepend-icon="mdi-plus" variant="flat" color="primary" @click="onSubmit">{{ t('createNew') }}</v-btn>
+        <v-btn variant="flat" color="primary" @click="onSubmit">{{ t('update') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
