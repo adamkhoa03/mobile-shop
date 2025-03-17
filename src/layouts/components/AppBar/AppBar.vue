@@ -52,7 +52,7 @@ const customizer = useCustomizerStore();
         </v-btn>
       </template>
       <v-sheet class="search-sheet v-col-12 pa-0" width="320">
-        <v-text-field persistent-placeholder placeholder="Search here.." color="primary" variant="solo" hide-details>
+        <v-text-field readonly persistent-placeholder placeholder="Search here.." color="primary" variant="solo" hide-details>
           <template v-slot:prepend-inner>
             <SearchOutlined :style="{ fontSize: '17px' }" />
           </template>
@@ -77,11 +77,11 @@ const customizer = useCustomizerStore();
     <!-- ---------------------------------------------- -->
     <!-- Github -->
     <!-- ---------------------------------------------- -->
-<!--    <v-btn-toggle v-model="locale" color="primary" mandatory>-->
-<!--      <v-btn value="en">🇺🇸 EN</v-btn>-->
-<!--      <v-btn value="vi">🇻🇳 VI</v-btn>-->
-<!--    </v-btn-toggle>-->
-    <base-change-language/>
+    <!--    <v-btn-toggle v-model="locale" color="primary" mandatory>-->
+    <!--      <v-btn value="en">🇺🇸 EN</v-btn>-->
+    <!--      <v-btn value="vi">🇻🇳 VI</v-btn>-->
+    <!--    </v-btn-toggle>-->
+    <base-change-language />
     <!-- ---------------------------------------------- -->
     <!-- Notification -->
     <!-- ---------------------------------------------- -->
