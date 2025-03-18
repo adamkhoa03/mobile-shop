@@ -49,12 +49,14 @@ const sidebarItem: menu[] = [
       {
         title: 'category.computer',
         to: '/computer',
-        icon: 'mdi-laptop'
+        icon: 'mdi-laptop',
+        disabled: true
       },
       {
         title: 'category.accessory',
         to: '/accessory',
-        icon: 'mdi-headphones'
+        icon: 'mdi-headphones',
+        disabled: true
       }
     ]
   },
@@ -73,12 +75,14 @@ const sidebarItem: menu[] = [
       {
         title: 'phones.warrantyList',
         to: '/phones/warrantyList',
-        icon: 'mdi-shield-check'
+        icon: 'mdi-shield-check',
+        disabled: true
       },
       {
         title: 'phones.inventoryList',
         to: '/phones/inventory',
-        icon: 'mdi-store'
+        icon: 'mdi-store',
+        disabled: true
       }
     ]
   },
