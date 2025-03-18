@@ -13,6 +13,7 @@ import SnackBar from '@/components/base/SnackBar.vue';
 const showPassword = ref(false);
 const { t } = useI18n();
 const router = useRouter();
+const loading = ref(false);
 
 const schema = object({
   email: string().required().email().label('Email'),
@@ -27,12 +28,16 @@ const [password, passwordAttr] = defineField('password');
 
 const onSubmit = handleSubmit(async (value) => {
   try {
+    loading.value = true;
     const response = await AuthenticationService.login(value);
     if (response) {
       localStorage.setItem('email', response.email);
       localStorage.setItem('firstName', response.firstName);
       localStorage.setItem('token', response.token);
-      await router.push('/dashboard');
+      setTimeout(async () => {
+        loading.value = false;
+        await router.push('/dashboard');
+      }, 1500);
     }
   } catch (error) {
     console.log(error);
@@ -42,7 +47,7 @@ const onSubmit = handleSubmit(async (value) => {
 </script>
 
 <template>
-  <div class="wrap-login d-flex align-center justify-center">
+  <v-form class="wrap-login d-flex align-center justify-center" @submit.prevent="onSubmit">
     <v-card class="pa-6" elevation="8" max-width="400">
       <v-card-title class="text-center text-h3">{{ t('login') }}</v-card-title>
 
@@ -73,7 +78,7 @@ const onSubmit = handleSubmit(async (value) => {
         />
 
         <!-- Login Button -->
-        <v-btn block color="primary" class="mt-4" @click="onSubmit">{{ t('login') }}</v-btn>
+        <v-btn type="submit" block color="primary" class="mt-4" @click="onSubmit">{{ t('login') }}</v-btn>
       </v-card-text>
 
       <v-card-actions class="justify-center">
@@ -84,8 +89,9 @@ const onSubmit = handleSubmit(async (value) => {
         <base-change-language />
       </div>
     </v-card>
-  </div>
+  </v-form>
   <snack-bar />
+  <base-dialog-loading :isLoading="loading" title="Đang đăng nhập..." />
 </template>
 
 <style scoped lang="scss">
