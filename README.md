@@ -17,5 +17,7 @@ Run:
 pnpm install or npm install
 ```
 Website demo: [mobileShop](https://adamkhoa03.github.io/mobile-shop/)
+- email: admin@gmail.com
+- password: admin123
 ### Contact information
 [Facebook](https://www.facebook.com/adamkhoa03)

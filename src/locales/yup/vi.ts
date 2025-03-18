@@ -4,7 +4,8 @@ export default {
   },
   string: {
     email: '${path} không hợp lệ!',
-    min: '${path} phải lớn hơn ${min} ký tự'
+    min: '${path} phải lớn hơn ${min} ký tự',
+    required: '${path} cannot be empty!'
   },
   number: {
     min: '${path} phải lớn hơn hoặc bằng ${min}!',

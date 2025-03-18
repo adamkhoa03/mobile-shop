@@ -6,12 +6,20 @@ import routerPhones from '@/views/phones/router/routePhone.ts';
 const routers = [
   {
     path: '/',
+    meta: {
+      requiresAuth: true
+    },
     component: layout,
     children: [
       {
-        name: 'LandingPage',
+        name: 'dashboard',
         path: '/',
-        component: () => import('@/views/dashboard/DefaultDashboard.vue')
+        component: () => import('@/views/pages/maintenance/comingsoon/ComingSoon.vue')
+      },
+      {
+        name: 'commingSoon',
+        path: '/comming-soon',
+        component: import('@/views/pages/maintenance/comingsoon/ComingSoon.vue')
       },
       ...routerDashboard,
       ...routerCategory,

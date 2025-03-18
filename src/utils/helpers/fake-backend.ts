@@ -2,7 +2,7 @@ export { fakeBackend };
 
 interface User {
   id: number;
-  username: string;
+  email: string;
   password: string;
   firstName: string;
   lastName: string;
@@ -10,42 +10,46 @@ interface User {
 
 interface ResponseBody {
   id: number;
-  username: string;
+  email: string;
   firstName: string;
   lastName: string;
   token: string;
 }
 
+//Fake backend using interceptor and Fetch
 function fakeBackend() {
-  const users = [{ id: 1, username: 'info@codedthemes.com', password: 'admin123', firstName: 'Codedthemes', lastName: '.com' }];
-  const realFetch = window.fetch;
+  const users = [
+    {
+      id: 1,
+      email: 'admin@gmail.com',
+      password: 'admin123',
+      firstName: 'Mobile Shop',
+      lastName: 'Admin'
+    }
+  ];
+
   window.fetch = function (url: string, opts: { method: string; headers: { [key: string]: string }; body?: string }) {
-    return new Promise<Response>((resolve, reject) => {
+    return new Promise<Response>((resolve) => {
       // wrap in timeout to simulate server api call
       setTimeout(handleRoute, 500);
 
       function handleRoute() {
         switch (true) {
-          case url.endsWith('/users/authenticate') && opts.method === 'POST':
+          case url.endsWith('/authenticate') && opts.method === 'POST':
             return authenticate();
           case url.endsWith('/users') && opts.method === 'GET':
             return getUsers();
-          default:
-            // pass through any requests not handled above
-            return realFetch(url, opts)
-              .then((response) => resolve(response))
-              .catch((error) => reject(error));
         }
       }
 
       // route functions
       function authenticate() {
-        const { username, password } = body();
-        const user = users.find((x) => x.username === username && x.password === password);
-        if (!user) return error('Username or password is incorrect');
+        const { email, password } = body();
+        const user = users.find((x) => x.email === email && x.password === password);
+        if (!user) return error('email or password is incorrect');
         return ok({
           id: user.id,
-          username: user.username,
+          email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
           token: 'fake-jwt-token'
@@ -78,5 +82,5 @@ function fakeBackend() {
         return opts.body && JSON.parse(opts.body);
       }
     });
-  } as typeof window.fetch; // Type assertion here
+  } as typeof window.fetch;
 }

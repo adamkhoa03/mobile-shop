@@ -16,6 +16,10 @@ const vi = {
   confirmDelete: 'Xác nhận xóa',
   updatingData: 'Đang cập nhật dữ liệu...',
   status: 'Trạng thái',
+  login: 'Đăng nhập',
+  password: 'Mật khẩu',
+  register: 'Đăng ký',
+  forgotPass: 'Quên mật khẩu',
   name: 'Tên',
   code: 'Mã',
   category: {

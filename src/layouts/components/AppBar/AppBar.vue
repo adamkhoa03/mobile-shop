@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCustomizerStore } from '@/stores/customizer.ts';
 // icons
-import { MenuFoldOutlined, SearchOutlined, GithubOutlined } from '@ant-design/icons-vue';
+import { MenuFoldOutlined, SearchOutlined } from '@ant-design/icons-vue';
 
 // dropdown imports
 import NotificationDD from '@/layouts/components/AppBar/components/NotificationDD.vue';
@@ -9,6 +9,7 @@ import Searchbar from '@/layouts/components/AppBar/components/SearchBarPanel.vue
 import ProfileDD from '@/layouts/components/AppBar/components/ProfileDD.vue';
 
 const customizer = useCustomizerStore();
+const name = localStorage.getItem('firstName');
 </script>
 
 <template>
@@ -81,7 +82,6 @@ const customizer = useCustomizerStore();
     <!--      <v-btn value="en">🇺🇸 EN</v-btn>-->
     <!--      <v-btn value="vi">🇻🇳 VI</v-btn>-->
     <!--    </v-btn-toggle>-->
-    <base-change-language />
     <!-- ---------------------------------------------- -->
     <!-- Notification -->
     <!-- ---------------------------------------------- -->
@@ -97,7 +97,7 @@ const customizer = useCustomizerStore();
             <v-avatar class="mr-sm-2 mr-0 py-2">
               <img src="../../../assets/images/users/avatar-1.png" alt="Julia" />
             </v-avatar>
-            <h6 class="text-subtitle-1 mb-0 d-sm-block d-none">JWT User</h6>
+            <h6 class="text-subtitle-1 mb-0 d-sm-block d-none">{{ name }}</h6>
           </div>
         </v-btn>
       </template>
