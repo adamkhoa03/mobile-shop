@@ -1,1 +1,0 @@
-import{g as a,c as t,w as o,d as r,a as s,u as n,R as p,h as u,o as l}from"./index-Du-ZvtRa.js";const f=a({__name:"BlankLayout",setup(c){return(d,e)=>(l(),t(u,null,{default:o(()=>[e[0]||(e[0]=r(" loader wrapper ")),s(n(p))]),_:1}))}});export{f as default};
