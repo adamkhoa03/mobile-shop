@@ -92,17 +92,20 @@ const sidebarItem: menu[] = [
       {
         title: 'computer.deviceList',
         to: '/computer/list',
-        icon: 'mdi-view-list'
+        icon: 'mdi-view-list',
+        disabled: true
       },
       {
         title: 'computer.warrantyList',
         to: '/computer/wrrantyList',
-        icon: 'mdi-shield-check'
+        icon: 'mdi-shield-check',
+        disabled: true
       },
       {
         title: 'computer.inventoryList',
         to: '/inventory',
-        icon: 'mdi-store'
+        icon: 'mdi-store',
+        disabled: true
       }
     ]
   },
@@ -116,17 +119,20 @@ const sidebarItem: menu[] = [
       {
         title: 'accessory.deviceList',
         to: '/accessory/deviceList',
-        icon: 'mdi-view-list'
+        icon: 'mdi-view-list',
+        disabled: true
       },
       {
         title: 'accessory.warrantyList',
         to: '/accessory/warrantyList',
-        icon: 'mdi-shield-check'
+        icon: 'mdi-shield-check',
+        disabled: true
       },
       {
         title: 'accessory.inventoryList',
         to: '/accessory/inventoryList',
-        icon: 'mdi-store'
+        icon: 'mdi-store',
+        disabled: true
       }
     ]
   },
@@ -135,21 +141,24 @@ const sidebarItem: menu[] = [
     title: 'promotion.name',
     icon: 'mdi-sale',
     subCaption: 'promotion.explanation',
-    to: '/promotion'
+    to: '/promotion',
+    disabled: true
   },
   { divider: true },
   {
     title: 'loyal.name',
     icon: 'mdi-crown',
     subCaption: 'loyal.explanation',
-    to: '/loyal'
+    to: '/loyal',
+    disabled: true
   },
   { divider: true },
   {
     title: 'revenue.name',
     icon: 'mdi-cash',
     subCaption: 'revenue.explanation',
-    to: '/revenue'
+    to: '/revenue',
+    disabled: true
   }
 ];
 

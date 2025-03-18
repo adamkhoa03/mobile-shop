@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PublicRoutes from './PublicRoutes';
-import routers from './routers.ts'
+import routers from './routers.ts';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,4 +12,15 @@ export const router = createRouter({
     ...routers,
     PublicRoutes
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('token');
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login');
+  } else if (to.name === 'login' && isAuthenticated) {
+    next('/dashboard');
+  } else {
+    next();
+  }
 });

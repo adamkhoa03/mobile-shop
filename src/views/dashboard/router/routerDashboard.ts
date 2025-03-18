@@ -1,12 +1,12 @@
 import routerName from '@/views/dashboard/router/routerName.ts';
 import routerPath from '@/views/dashboard/router/routerPath.ts';
-import dashBoard from '@/views/dashboard/DefaultDashboard.vue';
+import ComingSoon from '@/views/pages/maintenance/comingsoon/ComingSoon.vue';
 
 const routerDashboard = [
   {
     name: routerName.DASHBOARD,
     path: routerPath.DASHBOARD,
-    component: dashBoard
+    component: ComingSoon
   }
 ];
 export default routerDashboard;

@@ -4,7 +4,8 @@ export default {
   },
   string: {
     email: '${path} is not valid!',
-    min: '${path} must be greater than ${min} characters'
+    min: '${path} must be greater than ${min} characters',
+    required: '${path} cannot be empty!'
   },
   number: {
     min: '${path} must be greater than or equal to ${min}!',
